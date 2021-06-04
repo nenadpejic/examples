@@ -1,0 +1,32 @@
+.todos {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.fieldset input {
+  display: block;
+}
+
+.error {
+  color: red;
+}
+
+.item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.completed {
+  text-decoration: line-through;
+}
