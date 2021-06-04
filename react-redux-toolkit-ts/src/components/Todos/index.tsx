@@ -54,16 +54,16 @@ const Todos: React.FC = () => {
         <fieldset className={styles.fieldset}>
           <legend>Post Todo</legend>
           <div>
-            <label>Title:</label>
-            <input type="text" placeholder='Title' required value={newTodo.title} onChange={handleSetNewTodo('title')} />
+            <label htmlFor="todoTitle">Title:</label>
+            <input id="todoTitle" type="text" placeholder='Title' required value={newTodo.title} onChange={handleSetNewTodo('title')} />
           </div>
           <div>
-            <label>User id:</label>
-            <input type="number" required value={newTodo.userId} onChange={handleSetNewTodo('userId')} />
+            <label htmlFor="todoUserId">User id:</label>
+            <input id="todoUserId" type="number" required value={newTodo.userId} onChange={handleSetNewTodo('userId')} />
           </div>
           <div>
-            <label>Completed:</label>
-            <input type="checkbox" checked={newTodo.completed} onChange={handleSetNewTodo('completed')} />
+            <label htmlFor="todoCompleted">Completed:</label>
+            <input id="todoCompleted" type="checkbox" checked={newTodo.completed} onChange={handleSetNewTodo('completed')} />
           </div>
           <button type='submit'>Post Todo</button>
         </fieldset>
@@ -71,12 +71,12 @@ const Todos: React.FC = () => {
 
       <p className={styles.error}>{error?.message}</p>
 
-      <h3>Todo:</h3>
+      <p>Todo:</p>
       <div>
         {todo && <span className={todo.completed ? styles.completed : ''}>{todo.title}</span>}
       </div>
 
-      <h3>Todos:</h3>
+      <p>Todos:</p>
       <ul>
         {todos.map(todo => (
           <li className={styles.item} key={todo.id} >
