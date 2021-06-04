@@ -10,7 +10,7 @@ const HeadComponent = ({ title, description, url }) => {
       <meta name='keywords' content='example keywords' />
       <meta name="theme-color" content="#ffffff"></meta>
       <link rel="manifest" href="/manifest.webmanifest" />
-      <link rel="canonical" href="https://www.example.com" />
+      <link rel="canonical" href={url} />
       <link rel="alternate" hrefLang="en" href="https://www.example.com/en" />
       <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico" />
       <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"></link>

@@ -4,7 +4,11 @@ import HeadComponent from '../components/HeadComponent'
 export default function Home() {
   return (
     <div className={styles.container}>
-      <HeadComponent title='Example Title' description='Example Description' url='https://www.example.com' />
+      <HeadComponent
+        title='Example Title'
+        description='Example Description'
+        url='https://www.example.com'
+      />
 
       <main className={styles.main}>
         <h1 className={styles.title}>

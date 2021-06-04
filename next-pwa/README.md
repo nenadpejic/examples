@@ -2,21 +2,21 @@
 
 Nexp app into Progressive Web App.
 
-## Installation
+## Instructions
 
-Create with
+1. Create Next app
 
 ```bash
 $ npx create-next-app
 ```
 
-Add next-pwa
+2. Add next-pwa as dependancy
 
 ```bash
 $ npm install next-pwa
 ```
 
-Create /next.config.js
+3. Create /next.config.js
 
 ```js
 const withPWA = require("next-pwa");
@@ -28,26 +28,20 @@ module.exports = withPWA({
 });
 ```
 
-Create manifest, favicon and images in /public
+4. Create manifest, favicon and images in /public
 
-```bash
-# manifest.webmanifest with 5 .png images
-https://www.simicart.com/manifest-generator.html/
+- manifest.webmanifest https://www.simicart.com/manifest-generator.html/
+- icon-192x192.png
+- icon-256x256.png
+- icon-384x384.png
+- icon-512x512.png
+- maskable-icon_x196.png
+- favicon.ico https://www.favicon-generator.org/
+- apple-touch-icon.png wich is 180x180
 
-# favicon.ico
-https://www.favicon-generator.org/
+5. Create components/HeadComponent.js
 
-# apple-touch-icon.png wich is 180x180
-```
-
-Test
-
-```bash
-$ npm run build
-$ npm run start
-```
-
-Optional: Add auto-generated service worker to .gitignore
+6. Optional: Add auto-generated service worker to .gitignore
 
 ```bash
 # next-pwa
