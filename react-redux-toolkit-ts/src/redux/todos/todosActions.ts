@@ -10,6 +10,19 @@ export const getTodos = createAsyncThunk(
   }
 )
 
+// // with custom error message
+// export const getTodos = createAsyncThunk(
+//   'todos/getTodos',
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await axiosJP.get<Todo[]>('/todos')
+//       return response.data
+//     } catch (error) {
+//       return rejectWithValue(error.response.data) // access in reducer .rejected with action.payload
+//     }
+//   }
+// )
+
 export const postTodo = createAsyncThunk(
   'todos/postTodo',
   async (newTodo: NewTodo) => {

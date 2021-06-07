@@ -26,6 +26,7 @@ const todosSlice = createSlice({
     builder.addCase(getTodos.rejected, (state, action) => {
       state.isLoading = false
       state.error = action.error
+      // state.error = action.payload // custom error
     })
     // POST
     builder.addCase(postTodo.pending, (state, _) => {
