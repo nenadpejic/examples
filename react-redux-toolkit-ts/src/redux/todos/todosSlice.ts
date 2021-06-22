@@ -1,22 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { deleteTodo, getTodos, postTodo, putTodo } from "./todosActions";
-import { TodosState } from "./todosTypes";
+import { Todo, TodosState } from "./todosTypes";
 
 const todosState: TodosState = {
   isLoading: false,
   isSuccess: false,
-  todos: []
+  todos: [],
+  error: undefined,
+  todo: undefined
 }
 
 const todosSlice = createSlice({
   name: 'todos',
   initialState: todosState,
-  reducers: {},
+  reducers: {
+    setTodos: (state, action: PayloadAction<Todo[]>) => {
+      state.todos = action.payload
+    }
+  },
   extraReducers: (builder) => {
     // GET
     builder.addCase(getTodos.pending, (state, _) => {
       state.isLoading = true
       state.isSuccess = false
+      state.error = undefined
     })
     builder.addCase(getTodos.fulfilled, (state, action) => {
       state.isLoading = false
@@ -32,6 +39,7 @@ const todosSlice = createSlice({
     builder.addCase(postTodo.pending, (state, _) => {
       state.isLoading = true
       state.isSuccess = false
+      state.error = undefined
     })
     builder.addCase(postTodo.fulfilled, (state, action) => {
       state.isLoading = false
@@ -47,6 +55,7 @@ const todosSlice = createSlice({
     builder.addCase(putTodo.pending, (state, _) => {
       state.isLoading = true
       state.isSuccess = false
+      state.error = undefined
     })
     builder.addCase(putTodo.fulfilled, (state, action) => {
       state.isLoading = false
@@ -67,6 +76,7 @@ const todosSlice = createSlice({
     builder.addCase(deleteTodo.pending, (state, _) => {
       state.isLoading = true
       state.isSuccess = false
+      state.error = undefined
     })
     builder.addCase(deleteTodo.fulfilled, (state, action) => {
       state.isLoading = false
