@@ -5,8 +5,8 @@ import WithPagination from './components/tables/WithPagination'
 function App() {
   return (
     <div className="App">
-      {/* <BasicTable /> */}
-      <WithPagination />
+      <BasicTable />
+      {/* <WithPagination /> */}
     </div>
   );
 }

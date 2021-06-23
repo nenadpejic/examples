@@ -18,9 +18,7 @@ const BasicTable = () => {
           <TableRow>
             <TableCell>Dessert (100g serving)</TableCell>
             <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp(g)</TableCell>
-            <TableCell align="right">Protein&nbsp(g)</TableCell>
+            <TableCell align="right">Fat(g)</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -29,8 +27,6 @@ const BasicTable = () => {
               <TableCell>{desert.name}</TableCell>
               <TableCell align="right">{desert.calories}</TableCell>
               <TableCell align="right">{desert.fat}</TableCell>
-              <TableCell align="right">{desert.carbs}</TableCell>
-              <TableCell align="right">{desert.protein}</TableCell>
             </TableRow>
           ))}
         </TableBody>

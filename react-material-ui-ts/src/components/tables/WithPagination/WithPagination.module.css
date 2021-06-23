@@ -6,3 +6,7 @@
 .table {
   min-width: 650px;
 }
+
+.table thead tr th {
+  font-weight: bold;
+}
