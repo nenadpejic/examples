@@ -91,7 +91,7 @@ const WithSorting = () => {
 
   return (
     <TableContainer className={styles.root} component={Paper}>
-      <Table className={styles.table} aria-labelledby="tableTitle" aria-label="enhanced table">
+      <Table className={styles.table} aria-label="enhanced table">
         <EnhancedTableHead
           numSelected={selected.length}
           order={order}
