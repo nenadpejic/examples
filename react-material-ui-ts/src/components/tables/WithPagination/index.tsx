@@ -69,6 +69,7 @@ const WithPagination = () => {
               }}
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
+              // optional, without this it will have just 2 buttons
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
