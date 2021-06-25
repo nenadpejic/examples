@@ -1,7 +1,7 @@
 import './App.css'
-import BasicTable from './components/tables/BasicTable'
-import WithPagination from './components/tables/WithPagination'
-import WithSorting from './components/tables/WithSorting'
+import BasicTable from './components/table/BasicTable'
+import WithPagination from './components/table/WithPagination'
+import WithSorting from './components/table/WithSorting'
 
 function App() {
   return (

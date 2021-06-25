@@ -19,7 +19,7 @@ const headCells: HeadCell[] = [
 
 interface Props {
   order: Order
-  orderBy: string
+  orderBy: keyof Data
   onClickSort: (property: keyof Data) => void
 }
 
