@@ -4,6 +4,7 @@ import WithPagination from './components/table/WithPagination'
 import WithSorting from './components/table/WithSorting'
 import WithSelecting from './components/table/WithSelecting'
 import AlertDialog from './components/dialog/AlertDialog'
+import SimpleMenu from './components/menu/SimpleMenu'
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       {/* <WithPagination /> */}
       {/* <WithSorting /> */}
       {/* <WithSelecting /> */}
-      <AlertDialog />
+      {/* <AlertDialog /> */}
+      <SimpleMenu />
     </div>
   );
 }
