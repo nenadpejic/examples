@@ -14,4 +14,7 @@ $ npx create-react-app . --template typescript
 
 ```bash
 $ npm i @material-ui/core @material-ui/icons
+
+$ npm i react-router-dom
+$ npm i -D @types/react-router-dom
 ```
