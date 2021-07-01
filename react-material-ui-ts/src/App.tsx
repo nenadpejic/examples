@@ -3,7 +3,7 @@ import BasicTable from './components/table/BasicTable'
 import WithPagination from './components/table/WithPagination'
 import WithSorting from './components/table/WithSorting'
 import WithSelecting from './components/table/WithSelecting'
-import SimpleDialogDemo from './components/dialog/SimpleDialogDemo'
+import AlertDialog from './components/dialog/AlertDialog'
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       {/* <WithPagination /> */}
       {/* <WithSorting /> */}
       {/* <WithSelecting /> */}
-      <SimpleDialogDemo />
+      <AlertDialog />
     </div>
   );
 }
