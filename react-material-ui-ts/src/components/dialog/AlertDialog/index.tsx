@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 const AlertDialog: React.FC = () => {
   const [open, setOpen] = useState(false)
 
-  const handleClickOpen = () => {
+  const handleOpen = () => {
     setOpen(true)
   }
 
@@ -19,7 +19,7 @@ const AlertDialog: React.FC = () => {
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
+      <Button variant="contained" color="primary" onClick={handleOpen}>
         Open alert dialog
       </Button>
 
