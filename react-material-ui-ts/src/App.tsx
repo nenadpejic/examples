@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 // import SimpleMenu from './components/menu/SimpleMenu'
 // import SimpleDrawer from './components/drawer/SimpleDrawer'
 import SimpleAccordion from './components/accordion/SimpleAccordion'
+// import ControlledAccordion from './components/accordion/ControlledAccordion'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         {/* <SimpleMenu /> */}
         {/* <SimpleDrawer /> */}
         <SimpleAccordion />
+        {/* <ControlledAccordion /> */}
       </Router>
     </div>
   );

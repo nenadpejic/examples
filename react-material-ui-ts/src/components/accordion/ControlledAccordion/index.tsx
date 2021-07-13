@@ -3,14 +3,19 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import React from 'react'
-import styles from './SimpleAccordion.module.css'
+import React, { useState } from 'react'
+import styles from './ControlledAccordion.module.css'
 
-const SimpleAccordion = () => {
+const ControlledAccordion = () => {
+  const [expanded, setExpanded] = useState<string | false>(false)
+
+  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false)
+  }
 
   return (
     <div className={styles.root}>
-      <Accordion>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -27,7 +32,7 @@ const SimpleAccordion = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
+      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
@@ -44,7 +49,7 @@ const SimpleAccordion = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion disabled>
+      <Accordion disabled expanded={expanded === 'panel3'} onChange={handleChange('panel3')} >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3a-content"
@@ -57,4 +62,4 @@ const SimpleAccordion = () => {
   )
 }
 
-export default SimpleAccordion
+export default ControlledAccordion
