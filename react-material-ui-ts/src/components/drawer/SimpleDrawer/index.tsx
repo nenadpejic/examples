@@ -18,16 +18,8 @@ const SimpleDrawer: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const listItems = [
-    {
-      text: 'Home',
-      icon: <HomeIcon />,
-      path: '/'
-    },
-    {
-      text: 'Users',
-      icon: <GroupIcon />,
-      path: '/users'
-    },
+    { text: 'Home', icon: <HomeIcon />, path: '/' },
+    { text: 'Users', icon: <GroupIcon />, path: '/users' },
   ]
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
