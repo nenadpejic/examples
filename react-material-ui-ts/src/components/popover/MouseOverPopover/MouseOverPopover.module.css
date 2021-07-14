@@ -1,0 +1,8 @@
+.popover {
+  pointer-events: none;
+}
+
+.paper {
+  padding: 0.5rem;
+  pointer-events: auto;
+}

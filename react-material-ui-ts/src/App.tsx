@@ -6,12 +6,13 @@ import { BrowserRouter as Router } from 'react-router-dom'
 // import AlertDialog from './components/dialog/AlertDialog'
 // import SimpleMenu from './components/menu/SimpleMenu'
 // import SimpleDrawer from './components/drawer/SimpleDrawer'
-import SimpleAccordion from './components/accordion/SimpleAccordion'
+// import SimpleAccordion from './components/accordion/SimpleAccordion'
 // import ControlledAccordion from './components/accordion/ControlledAccordion'
+import MouseOverPopover from './components/popover/MouseOverPopover'
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <Router>
         {/* <BasicTable /> */}
         {/* <WithPagination /> */}
@@ -20,8 +21,9 @@ function App() {
         {/* <AlertDialog /> */}
         {/* <SimpleMenu /> */}
         {/* <SimpleDrawer /> */}
-        <SimpleAccordion />
+        {/* <SimpleAccordion /> */}
         {/* <ControlledAccordion /> */}
+        <MouseOverPopover />
       </Router>
     </div>
   );
