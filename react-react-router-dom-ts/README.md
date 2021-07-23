@@ -14,4 +14,5 @@ $ npx create-react-app react-react-router-dom --template typescript
 
 ```bash
 $ npm i react-router-dom
+$ npm i -D @types/react-router-dom
 ```
