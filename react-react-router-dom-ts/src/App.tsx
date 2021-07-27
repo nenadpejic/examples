@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Link, Redirect, Route, useHistory, useLocation } from 'react-router-dom';
+import { BrowserRouter, Link, Redirect, Route, RouteProps, useHistory, useLocation } from 'react-router-dom';
 import './App.css';
 
 const fakeAuth = {
@@ -14,19 +14,13 @@ const fakeAuth = {
   },
 }
 
-interface Props {
-  path: string,
-  component: () => JSX.Element
-}
-
-const PrivateRoute: React.FC<Props> = ({ path, component: Component }) => {
+const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
 
   return (
-    <Route path={path} render={({ location }) => {
-      console.log(location)
+    <Route {...rest} render={({ location }) => {
       return (
         fakeAuth.isAuth === true
-          ? <Component />
+          ? children
           : <Redirect to={{
             pathname: '/login',
             state: { from: location }
@@ -37,7 +31,7 @@ const PrivateRoute: React.FC<Props> = ({ path, component: Component }) => {
   )
 }
 
-const Public = () => {
+const Public: React.FC = () => {
 
   return (
     <div>
@@ -46,7 +40,7 @@ const Public = () => {
   )
 }
 
-const Protected = () => {
+const Protected: React.FC = () => {
   const history = useHistory()
 
   const handleClickLogout = () => {
@@ -62,10 +56,10 @@ const Protected = () => {
   )
 }
 
-const Login = () => {
+const Login: React.FC = () => {
   const [redirectToReferrer, setRedirectToReferrer] = useState(false)
 
-  const { state } = useLocation()
+  const { state } = useLocation<{ from: string }>()
 
   const handleClickLogin = () => {
     fakeAuth.signin(() => {
@@ -74,7 +68,6 @@ const Login = () => {
   }
 
   if (redirectToReferrer === true) {
-    // @ts-ignore
     return <Redirect to={state?.from || '/'} />
   }
 
@@ -87,21 +80,32 @@ const Login = () => {
   )
 }
 
+const RedirectHere: React.FC = () => {
+  return (
+    <div>
+      <h1>RedirectHere</h1>
+    </div>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-
         <ul>
           <li><Link to='/public'>To Public Page</Link></li>
           <li><Link to='/protected'>To Protected Page</Link></li>
+          <li><Link to='/redirect'>{"To RedirectHere Page, from '/redirect' to '/redirect/here'"}</Link></li>
         </ul>
 
         <Route exact path='/public' component={Public} />
 
         <Route exact path='/login' component={Login} />
 
-        <PrivateRoute path='/protected' component={Protected} />
+        <PrivateRoute exact path='/protected' children={<Protected />} />
+
+        <PrivateRoute exact path='/redirect' children={<Redirect to="/redirect/here" />} />
+        <PrivateRoute exact path='/redirect/here' children={<RedirectHere />} />
 
       </div>
     </BrowserRouter>
