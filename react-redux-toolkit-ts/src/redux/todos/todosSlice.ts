@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteTodo, getTodos, postTodo, putTodo } from "./todosActions";
+import { deleteTodo, getTodos, getTodosWithCustomError, postTodo, putTodo } from "./todosActions";
 import { Todo, TodosState } from "./todosTypes";
 
-const todosState: TodosState = {
+const initialState: TodosState = {
   isLoading: false,
   isSuccess: false,
   todos: [],
@@ -12,7 +12,7 @@ const todosState: TodosState = {
 
 const todosSlice = createSlice({
   name: 'todos',
-  initialState: todosState,
+  initialState,
   reducers: {
     setTodos: (state, action: PayloadAction<Todo[]>) => {
       state.todos = action.payload
@@ -33,7 +33,11 @@ const todosSlice = createSlice({
     builder.addCase(getTodos.rejected, (state, action) => {
       state.isLoading = false
       state.error = action.error
-      // state.error = action.payload // custom error
+    })
+    // GET with custom error
+    builder.addCase(getTodosWithCustomError.rejected, (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
     })
     // POST
     builder.addCase(postTodo.pending, (state, _) => {
@@ -89,5 +93,7 @@ const todosSlice = createSlice({
     })
   }
 })
+
+export const { setTodos } = todosSlice.actions
 
 export default todosSlice
