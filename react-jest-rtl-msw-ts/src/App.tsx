@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { getAllTodos, Todo } from 'services/todos';
 import './App.css';
 
-export interface TodosState {
+interface TodosState {
   isLoading: boolean
   todos?: Todo[]
   error?: { message: string }
@@ -16,17 +16,23 @@ function App() {
   })
 
   const handleClickGetTodos = () => {
+    setTodosState(prevState => ({
+      ...prevState,
+      isLoading: true,
+    }))
     getAllTodos()
       .then(todos => {
         setTodosState({
-          ...todosState,
-          todos
+          isLoading: false,
+          todos,
+          error: undefined
         })
       })
       .catch(error => {
         setTodosState({
-          ...todosState,
-          error
+          isLoading: false,
+          todos: undefined,
+          error: error.response.data || error
         })
       })
   }
