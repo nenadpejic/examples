@@ -32,6 +32,7 @@ describe("<App />", () => {
       }]
     })
     userEvent.click(getTodosBtn)
+    expect(axiosJsonplaceholder.get).toHaveBeenCalledTimes(1)
 
     expect(await screen.findByText("Test title")).toBeInTheDocument()
   })
@@ -41,6 +42,7 @@ describe("<App />", () => {
 
     jest.spyOn(axiosJsonplaceholder, "get").mockRejectedValueOnce({ message: "Test error" })
     userEvent.click(getTodosBtn)
+    expect(axiosJsonplaceholder.get).toHaveBeenCalledTimes(1)
 
     expect(await screen.findByText("Test error")).toBeInTheDocument()
   })
