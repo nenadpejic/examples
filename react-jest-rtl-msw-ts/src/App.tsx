@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAllTodos, Todo } from 'services/todos';
+import { addTodo, getAllTodos, Todo } from 'services/todos';
 import './App.css';
 
 interface TodosState {
@@ -37,10 +37,42 @@ function App() {
       })
   }
 
+  const handleClickAddTodo = () => {
+    setTodosState(prevState => ({
+      ...prevState,
+      isLoading: true,
+    }))
+    const _todo = {
+      completed: false,
+      title: 'New added todo',
+      userId: 1
+    }
+    addTodo(_todo)
+      .then(todo => {
+        setTodosState(prevState => ({
+          isLoading: false,
+          todos: prevState.todos ? [
+            ...prevState.todos,
+            todo
+          ] : [todo],
+          error: undefined
+        }))
+      })
+      .catch(error => {
+        setTodosState({
+          isLoading: false,
+          todos: undefined,
+          error: error.response.data || error
+        })
+      })
+  }
+
   return (
     <div className="App">
 
       <button onClick={handleClickGetTodos}>Get Todos</button>
+
+      <button onClick={handleClickAddTodo}>Add Todo</button>
 
       <div>{todosState.error?.message}</div>
 

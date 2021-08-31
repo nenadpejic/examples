@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { getAllTodosFail500, getAllTodosSuccess } from 'mocks/handlers';
+import { addTodoFail500, getAllTodosFail500 } from 'mocks/handlers';
 import { server } from 'mocks/server';
 import React from 'react';
 import App from './App';
@@ -32,25 +32,21 @@ describe("<App />", () => {
     expect(await screen.findByText("Internal server error")).toBeInTheDocument()
   })
 
-  it("test", async () => {
-    const getTodosBtn = screen.getByText("Get Todos")
+  it("should render new added todo on button click", async () => {
+    const addTodoBtn = screen.getByText("Add Todo")
 
-    expect(screen.getByRole("list")).toBeEmptyDOMElement()
+    userEvent.click(addTodoBtn)
 
-    userEvent.click(getTodosBtn)
+    expect(await screen.findByText("New added todo")).toBeInTheDocument()
+  })
 
-    expect(await screen.findByText("Test title")).toBeInTheDocument()
+  it("should display error message if addTodo failed", async () => {
+    const addTodoBtn = screen.getByText("Add Todo")
 
-    server.use(getAllTodosFail500)
+    server.use(addTodoFail500)
 
-    userEvent.click(getTodosBtn)
+    userEvent.click(addTodoBtn)
 
     expect(await screen.findByText("Internal server error")).toBeInTheDocument()
-
-    server.use(getAllTodosSuccess)
-
-    userEvent.click(getTodosBtn)
-
-    expect(await screen.findByText("Test title")).toBeInTheDocument()
   })
 })
