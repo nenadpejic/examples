@@ -19,13 +19,13 @@ export const getAllTodos = (): ThunkAction<
 
       dispatch({ type: "todosGetAll/fulfilled", payload: data })
 
-    } catch (error) {
+    } catch (error: any) {
+      let message = 'Unhandled error'
 
-      let message = ''
-      if (error.response.data) {
-        message = `${error.response.statusText}, ${error.response.status}`
+      if (error.response.data.message) {
+        message = error.response.data.message
       } else {
-        message = error.response.data
+        message = error.message
       }
 
       dispatch({ type: "todosGetAll/rejected", error: { message } })
@@ -57,3 +57,18 @@ export const getAllTodosUsingFetch = (): ThunkAction<
       dispatch({ type: "todosGetAll/rejected", error: { message } })
     }
   }
+
+// Synchronous example
+export const getAllTodosSync = (): TodosGetAllAction => {
+  return {
+    type: "todosGetAll/fulfilled",
+    payload: [
+      {
+        id: 1,
+        completed: false,
+        title: 'Example title',
+        userId: 1
+      }
+    ]
+  }
+}

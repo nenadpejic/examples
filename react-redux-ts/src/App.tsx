@@ -6,10 +6,9 @@ import { getAllTodos } from './redux/todos/todosActions';
 function App() {
   const dispatch = useAppDispatch()
 
-  const { loading, todos, error } = useAppSelector(state => state.todosGetAll)
+  const { isLoading, todos, error } = useAppSelector(state => state.todosGetAll)
 
   const handleClickGetAllTodos = () => {
-    // TODO: Need to fix the ts warning here
     // @ts-ignore
     dispatch(getAllTodos())
   }
@@ -22,7 +21,7 @@ function App() {
       }
 
       <div style={{ position: 'relative' }}>
-        {loading &&
+        {isLoading &&
           <div style={{ position: 'absolute', inset: '0px', backgroundColor: 'rgba(255, 255, 255, 0.75)', display: 'flex' }}>
             <span style={{ margin: 'auto' }}>Loading...</span>
           </div>

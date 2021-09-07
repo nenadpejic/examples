@@ -1,7 +1,7 @@
 import { TodosGetAllAction, TodosGetAllState } from "./todosTypes";
 
 const initialState: TodosGetAllState = {
-  loading: false,
+  isLoading: false,
   todos: undefined,
   error: undefined
 }
@@ -13,18 +13,18 @@ export const todosGetAllReducer = (
   switch (action.type) {
     case "todosGetAll/pending":
       return {
-        loading: true,
+        isLoading: true,
         todos: state.todos,
         error: state.error
       };
     case "todosGetAll/fulfilled":
       return {
-        loading: false,
+        isLoading: false,
         todos: action.payload,
       };
     case "todosGetAll/rejected":
       return {
-        loading: false,
+        isLoading: false,
         error: action.error,
       };
     default:

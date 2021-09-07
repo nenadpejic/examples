@@ -6,13 +6,23 @@ interface Todo {
 }
 
 export interface TodosGetAllState {
-  loading: boolean
+  isLoading: boolean
   todos?: Todo[]
   error?: { message: string }
 }
 
-export interface TodosGetAllAction {
-  type: "todosGetAll/pending" | "todosGetAll/fulfilled" | "todosGetAll/rejected"
-  payload?: TodosGetAllState["todos"]
-  error?: TodosGetAllState["error"]
+interface TodosGetAllPendingAction {
+  type: "todosGetAll/pending"
 }
+
+interface TodosGetAllFulfilledAction {
+  type: "todosGetAll/fulfilled"
+  payload: Todo[]
+}
+
+interface TodosGetAllRejectedAction {
+  type: "todosGetAll/rejected"
+  error: { message: string }
+}
+
+export type TodosGetAllAction = TodosGetAllPendingAction | TodosGetAllFulfilledAction | TodosGetAllRejectedAction
