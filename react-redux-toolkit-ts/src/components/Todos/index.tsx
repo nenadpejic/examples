@@ -78,7 +78,7 @@ const Todos: React.FC = () => {
 
       <p>Todos:</p>
       <ul>
-        {todos.map(todo => (
+        {todos?.map(todo => (
           <li className={styles.item} key={todo.id} >
             <span className={todo.completed ? styles.completed : ''}>{todo.title}</span>
             <button type='button' onClick={() => handleClickEdit(todo)}>Edit</button>

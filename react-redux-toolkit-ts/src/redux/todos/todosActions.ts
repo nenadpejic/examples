@@ -1,28 +1,34 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosJP } from "../../axios";
+import { axiosJsonplaceholder } from "../../axios";
 import { NewTodo, Todo } from "./todosTypes";
 
 export const getTodos = createAsyncThunk(
   'todos/getTodos',
   async () => {
-    const response = await axiosJP.get<Todo[]>('/todos')
-    return response.data
+    const { data } = await axiosJsonplaceholder.get<Todo[]>('/todos')
+    return data
   }
 )
 
 // With custom error message
 export const getTodosWithCustomError = createAsyncThunk<
-  Todo[], // fulfilled return value
-  void, // parameter value
-  { rejectValue: { message: string } } // reject return value
+  Todo[], // returned
+  void, // argument
+  { rejectValue: { message: string } } // config
 >(
   'todos/getTodosWithCustomError',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosJP.get<Todo[]>('/todos')
-      return response.data
-    } catch (error) {
-      return rejectWithValue(error.response.data) // access in reducer .rejected with action.payload
+      const { data } = await axiosJsonplaceholder.get<Todo[]>('/todos')
+      return data
+    } catch (error: any) {
+      let message = 'Unhandled error'
+      if (error.response.data.message) {
+        message = error.response.data.message
+      } else {
+        message = error.response.message
+      }
+      return rejectWithValue({ message }) // access in reducer .rejected with action.payload
     }
   }
 )
@@ -30,23 +36,23 @@ export const getTodosWithCustomError = createAsyncThunk<
 export const postTodo = createAsyncThunk(
   'todos/postTodo',
   async (newTodo: NewTodo) => {
-    const response = await axiosJP.post<Todo>('/todos', newTodo)
-    return response.data
+    const { data } = await axiosJsonplaceholder.post<Todo>('/todos', newTodo)
+    return data
   }
 )
 
 export const putTodo = createAsyncThunk(
   'todos/putTodo',
   async (todo: Todo) => {
-    const response = await axiosJP.put<Todo>(`/todos/${todo.id}`, todo)
-    return response.data
+    const { data } = await axiosJsonplaceholder.put<Todo>(`/todos/${todo.id}`, todo)
+    return data
   }
 )
 
 export const deleteTodo = createAsyncThunk(
   'todos/deleteTodo',
   async (id: number) => {
-    await axiosJP.delete(`/todos/${id}`)
+    await axiosJsonplaceholder.delete(`/todos/${id}`)
     return id
   }
 )

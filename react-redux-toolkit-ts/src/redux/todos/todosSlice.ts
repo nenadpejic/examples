@@ -1,11 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteTodo, getTodos, getTodosWithCustomError, postTodo, putTodo } from "./todosActions";
+import { deleteTodo, getTodos, postTodo, putTodo } from "./todosActions";
 import { Todo, TodosState } from "./todosTypes";
 
 const initialState: TodosState = {
   isLoading: false,
-  isSuccess: false,
-  todos: [],
+  todos: undefined,
   error: undefined,
   todo: undefined
 }
@@ -22,73 +21,66 @@ const todosSlice = createSlice({
     // GET
     builder.addCase(getTodos.pending, (state, _) => {
       state.isLoading = true
-      state.isSuccess = false
-      state.error = undefined
     })
     builder.addCase(getTodos.fulfilled, (state, action) => {
       state.isLoading = false
-      state.isSuccess = true
       state.todos = action.payload
+      state.error = undefined
     })
     builder.addCase(getTodos.rejected, (state, action) => {
       state.isLoading = false
-      state.error = action.error
-    })
-    // GET with custom error
-    builder.addCase(getTodosWithCustomError.rejected, (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
+      state.todos = undefined
+      state.error = action.error // action.payload if custom error
     })
     // POST
     builder.addCase(postTodo.pending, (state, _) => {
       state.isLoading = true
-      state.isSuccess = false
-      state.error = undefined
     })
     builder.addCase(postTodo.fulfilled, (state, action) => {
       state.isLoading = false
-      state.isSuccess = true
       state.todo = action.payload
-      state.todos = [...state.todos, action.payload]
+      state.todos = [...state.todos || [], action.payload]
+      state.error = undefined
     })
     builder.addCase(postTodo.rejected, (state, action) => {
       state.isLoading = false
+      state.todo = undefined
+      state.todos = undefined
       state.error = action.error
     })
     // PUT
     builder.addCase(putTodo.pending, (state, _) => {
       state.isLoading = true
-      state.isSuccess = false
-      state.error = undefined
     })
     builder.addCase(putTodo.fulfilled, (state, action) => {
       state.isLoading = false
-      state.isSuccess = true
       state.todo = action.payload
-      state.todos = [...state.todos].map(todo => {
+      state.todos = [...state.todos || []].map(todo => {
         if (todo.id === action.payload.id) {
           return action.payload
         }
         return todo
       })
+      state.error = undefined
     })
     builder.addCase(putTodo.rejected, (state, action) => {
       state.isLoading = false
+      state.todo = undefined
+      state.todos = undefined
       state.error = action.error
     })
     // DELETE
     builder.addCase(deleteTodo.pending, (state, _) => {
       state.isLoading = true
-      state.isSuccess = false
-      state.error = undefined
     })
     builder.addCase(deleteTodo.fulfilled, (state, action) => {
       state.isLoading = false
-      state.isSuccess = true
-      state.todos = [...state.todos].filter(todo => todo.id !== action.payload)
+      state.todos = [...state.todos || []].filter(todo => todo.id !== action.payload)
+      state.error = undefined
     })
     builder.addCase(deleteTodo.rejected, (state, action) => {
       state.isLoading = false
+      state.todos = undefined
       state.error = action.error
     })
   }
