@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   const dispatch = useAppDispatch()
 
-  const { todos, error } = useAppSelector(state => state.todos)
+  const { isLoading, todos, error } = useAppSelector(state => state.todos)
 
   const handleClickGetTodos = () => {
     dispatch(getAllTodos())
@@ -15,16 +15,19 @@ function App() {
   return (
     <div className="App">
 
-      <button onClick={handleClickGetTodos}>Get Todos</button>
+      <div>
+        {isLoading && <p>Loading...</p>}
 
-      <div>{error?.message}</div>
+        <button onClick={handleClickGetTodos}>Get Todos</button>
 
-      <ul>
-        {todos?.map(todo => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul>
+        {error && <p>{error.message}</p>}
 
+        <ul>
+          {todos?.map(todo => (
+            <li key={todo.id}>{todo.title}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
