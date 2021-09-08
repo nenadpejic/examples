@@ -24,7 +24,7 @@ export const getAllTodos = (): ThunkAction<
 
       if (error.response.data.message) {
         message = error.response.data.message
-      } else {
+      } else if (error.message) {
         message = error.message
       }
 
