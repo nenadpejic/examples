@@ -1,7 +1,7 @@
 import { rest } from 'msw'
 import { baseURL } from 'services/axios'
 
-export const getAllTodosSuccess = rest.get(`${baseURL}/todos`, (req, res, ctx) => {
+const getAllTodosHandler = rest.get(`${baseURL}/todos`, (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json([{
@@ -20,7 +20,7 @@ export const getAllTodosFail500 = rest.get(`${baseURL}/todos`, (req, res, ctx) =
   )
 })
 
-export const addTodoSuccess = rest.post(`${baseURL}/todos`, (req, res, ctx) => {
+const addTodoHandler = rest.post(`${baseURL}/todos`, (req, res, ctx) => {
   const { body } = req
 
   return res(
@@ -40,6 +40,6 @@ export const addTodoFail500 = rest.post(`${baseURL}/todos`, (req, res, ctx) => {
 })
 
 export const handlers = [
-  getAllTodosSuccess,
-  addTodoSuccess
+  getAllTodosHandler,
+  addTodoHandler
 ]
