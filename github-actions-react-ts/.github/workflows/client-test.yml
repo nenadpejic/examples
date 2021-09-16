@@ -1,0 +1,20 @@
+name: client-test
+
+on:
+  pull_request:
+    # NOTE: Both paths and branches need to be satisfied
+    paths: "client/**"
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Position to client and install modules
+      run: cd client && npm install
+    
+    - name: Position to client and run tests
+      run: cd client && npm test
