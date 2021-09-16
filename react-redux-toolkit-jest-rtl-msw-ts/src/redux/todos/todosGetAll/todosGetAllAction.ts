@@ -1,9 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosJsonplaceholder } from "services/axios";
-import { Todo } from "./todosGetAllTypes";
+import { TodosGetAllResponseBody } from "./todosGetAllTypes";
+
+interface Output {
+  data: TodosGetAllResponseBody
+}
 
 export const getAllTodos = createAsyncThunk<
-  Todo[],
+  Output,
   void,
   { rejectValue: { message: string } }
 >(
@@ -11,7 +15,7 @@ export const getAllTodos = createAsyncThunk<
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axiosJsonplaceholder.get('/todos')
-      return data
+      return { data }
     } catch (error: any) {
       let message = 'Unhandled error'
       if (error.response.data.message) {

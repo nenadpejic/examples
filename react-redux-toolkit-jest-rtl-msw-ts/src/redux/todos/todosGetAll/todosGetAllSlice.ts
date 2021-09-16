@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllTodos } from "./todosGetAllActions";
+import { getAllTodos } from "./todosGetAllAction";
 import { TodosGetAllState } from "./todosGetAllTypes";
 
 const initialState: TodosGetAllState = {
@@ -9,7 +9,7 @@ const initialState: TodosGetAllState = {
 }
 
 const todosGetAllSlice = createSlice({
-  name: 'todos',
+  name: 'todosGetAll',
   initialState,
   reducers: {},
   extraReducers: builder => {
@@ -18,7 +18,7 @@ const todosGetAllSlice = createSlice({
     })
     builder.addCase(getAllTodos.fulfilled, (state, action) => {
       state.isLoading = false
-      state.todos = action.payload
+      state.todos = action.payload.data
       state.error = undefined
     })
     builder.addCase(getAllTodos.rejected, (state, action) => {

@@ -1,12 +1,11 @@
-export interface Todo {
-  userId: number
-  id: number
-  title: string
-  completed: boolean
-}
+import { Todo } from "../todoType"
+
+export type TodoGetAll = Todo
 
 export interface TodosGetAllState {
   isLoading: boolean
-  todos?: Todo[]
+  todos?: TodoGetAll[]
   error?: { message: string }
 }
+
+export type TodosGetAllResponseBody = TodoGetAll[]
