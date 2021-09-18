@@ -1,7 +1,12 @@
 import { rest } from 'msw'
 import { baseURL } from 'services/axios'
+import { AddTodoRequestBody, AddTodoResponseBody, GetAllTodosResponseBody } from 'services/todos.types'
 
-const getAllTodosHandler = rest.get(`${baseURL}/todos`, (req, res, ctx) => {
+const getAllTodosHandler = rest.get<
+  undefined,
+  GetAllTodosResponseBody,
+  {}
+>(`${baseURL}/todos`, (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json([{
@@ -13,26 +18,38 @@ const getAllTodosHandler = rest.get(`${baseURL}/todos`, (req, res, ctx) => {
   )
 })
 
-export const getAllTodosFail500 = rest.get(`${baseURL}/todos`, (req, res, ctx) => {
+export const getAllTodosFail500 = rest.get<
+  undefined,
+  { message: string },
+  {}
+>(`${baseURL}/todos`, (req, res, ctx) => {
   return res(
     ctx.status(500),
     ctx.json({ message: "Internal server error" })
   )
 })
 
-const addTodoHandler = rest.post(`${baseURL}/todos`, (req, res, ctx) => {
+const addTodoHandler = rest.post<
+  AddTodoRequestBody,
+  AddTodoResponseBody,
+  {}
+>(`${baseURL}/todos`, (req, res, ctx) => {
   const { body } = req
 
   return res(
     ctx.status(200),
     ctx.json({
-      ...body as {},
-      id: 201
+      ...body,
+      id: new Date().getTime()
     })
   )
 })
 
-export const addTodoFail500 = rest.post(`${baseURL}/todos`, (req, res, ctx) => {
+export const addTodoFail500 = rest.post<
+  AddTodoRequestBody,
+  { message: string },
+  {}
+>(`${baseURL}/todos`, (req, res, ctx) => {
   return res(
     ctx.status(500),
     ctx.json({ message: "Internal server error" })

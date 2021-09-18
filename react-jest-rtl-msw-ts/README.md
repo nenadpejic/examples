@@ -1,6 +1,6 @@
 # react jest rtl msw ts
 
-This is an example of testing a React app with Mock Service Worker.
+Example of testing a React app with Jest, React Testing Library and Mock Service Worker.
 
 Technologies:
 - create-react-app
@@ -10,7 +10,7 @@ Technologies:
 - react-testing-library
 - mock-service-worker
 
-# Setup
+## Setup
 
 - Initialize with create-react-app
 ```bash
@@ -34,12 +34,20 @@ $ npm i -D msw
 
 - Create `mocks/server.ts`
 
-- Start worker in `index.tsx`
+- Implement browser worker in `index.tsx`
 
-- Setup server in `setupTests.ts`
+- Setup server worker in `setupTests.ts`
 
-- Setup msw
+- Setup msw with command:
 
 ```bash
 $ npx msw init public/ --save
+```
+
+## Testing
+
+Run tests:
+
+```bash
+$ npm test
 ```

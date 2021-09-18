@@ -1,20 +1,16 @@
 import { axiosJsonplaceholder } from "./axios"
-
-export interface Todo {
-  userId: number
-  id: number
-  title: string
-  completed: boolean
-}
+import { AddTodoRequestBody, AddTodoResponseBody, GetAllTodosResponseBody } from "./todos.types"
 
 export const getAllTodos = async () => {
-  const { data } = await axiosJsonplaceholder.get<Todo[]>("/todos")
+  const { data } = await axiosJsonplaceholder.get<GetAllTodosResponseBody>("/todos")
   return data
 }
 
-type PostTodo = Omit<Todo, "id">
+interface AddTodoInput {
+  body: AddTodoRequestBody
+}
 
-export const addTodo = async (todo: PostTodo) => {
-  const { data } = await axiosJsonplaceholder.post<Todo>("/todos", todo)
+export const addTodo = async ({ body }: AddTodoInput) => {
+  const { data } = await axiosJsonplaceholder.post<AddTodoResponseBody>("/todos", body)
   return data
 }

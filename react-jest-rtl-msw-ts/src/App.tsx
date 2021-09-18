@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { addTodo, getAllTodos, Todo } from 'services/todos';
-import './App.css';
+import { addTodo, getAllTodos } from 'services/todos';
+import { Todo } from 'services/todos.types';
 
 interface TodosState {
   isLoading: boolean
@@ -14,6 +14,7 @@ function App() {
     todos: undefined,
     error: undefined
   })
+  const { isLoading, todos, error } = todosState
 
   const handleClickGetTodos = () => {
     setTodosState(prevState => ({
@@ -42,12 +43,13 @@ function App() {
       ...prevState,
       isLoading: true,
     }))
-    const _todo = {
-      completed: false,
-      title: 'New added todo',
-      userId: 1
-    }
-    addTodo(_todo)
+    addTodo({
+      body: {
+        completed: false,
+        title: 'New added todo',
+        userId: 1
+      }
+    })
       .then(todo => {
         setTodosState(prevState => ({
           isLoading: false,
@@ -74,10 +76,12 @@ function App() {
 
       <button onClick={handleClickAddTodo}>Add Todo</button>
 
-      <div>{todosState.error?.message}</div>
+      {isLoading && <p>Loading...</p>}
+
+      {error && <p>{error.message}</p>}
 
       <ul>
-        {todosState.todos?.map(todo => (
+        {todos?.map(todo => (
           <li key={todo.id}>{todo.title}</li>
         ))}
       </ul>
