@@ -30,29 +30,29 @@ function App() {
   return (
     <div className="App">
 
-      <div>
-        {(todosGetAllIsLoading || todoUpdateIsLoading) && <p>Loading...</p>}
+      <button onClick={handleClickGetTodos}>Get Todos</button>
 
-        <button onClick={handleClickGetTodos}>Get Todos</button>
+      {(todosGetAllIsLoading || todoUpdateIsLoading) && <p role="progressbar">Loading...</p>}
 
-        {todosGetAllError && <p>{todosGetAllError.message}</p>}
-        {todoUpdateError && <p>{todoUpdateError.message}</p>}
+      {todosGetAllError && <p>{todosGetAllError.message}</p>}
+      {todoUpdateError && <p>{todoUpdateError.message}</p>}
 
-        <ul>
-          {todosGetAll?.map(todo => {
-            if (todo.id === todoUpdate?.id) {
-              return todoUpdate
-            }
-            return todo
-          })
-            .map(todo => (
+      <ul>
+        {todosGetAll?.map(todo => {
+          if (todo.id === todoUpdate?.id) {
+            return todoUpdate
+          }
+          return todo
+        })
+          .map(todo => {
+            return (
               <li key={todo.id}>
                 <span style={todo.completed ? { textDecoration: 'line-through' } : undefined}>{todo.title}</span>
                 <button onClick={() => handleClickEdit(todo)}>Edit</button>
               </li>
-            ))}
-        </ul>
-      </div>
+            )
+          })}
+      </ul>
     </div>
   );
 }
