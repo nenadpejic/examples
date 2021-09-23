@@ -27,6 +27,8 @@ export const todosGetAllReducer = (
         isLoading: false,
         error: action.error,
       };
+    case "todosGetAll/reset":
+      return initialState;
     default:
       return state;
   }

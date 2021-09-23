@@ -25,4 +25,8 @@ interface TodosGetAllRejectedAction {
   error: { message: string }
 }
 
-export type TodosGetAllAction = TodosGetAllPendingAction | TodosGetAllFulfilledAction | TodosGetAllRejectedAction
+interface TodosGetAllResetAction {
+  type: "todosGetAll/reset"
+}
+
+export type TodosGetAllAction = TodosGetAllPendingAction | TodosGetAllFulfilledAction | TodosGetAllRejectedAction | TodosGetAllResetAction

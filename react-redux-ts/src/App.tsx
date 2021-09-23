@@ -1,7 +1,6 @@
 import React from 'react';
-import './App.css';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { getAllTodos } from './redux/todos/todosActions';
+import { getAllTodos, resetTodosGetAllState } from './redux/todos/todosActions';
 
 function App() {
   const dispatch = useAppDispatch()
@@ -11,6 +10,11 @@ function App() {
   const handleClickGetAllTodos = () => {
     // @ts-ignore
     dispatch(getAllTodos())
+  }
+
+  const handleClickReset = () => {
+    // @ts-ignore
+    dispatch(resetTodosGetAllState())
   }
 
   return (
@@ -28,6 +32,7 @@ function App() {
         }
 
         <button onClick={handleClickGetAllTodos}>Get All Todos</button>
+        <button onClick={handleClickReset}>Reset</button>
 
         <ul>
           {todos?.map(todo => (

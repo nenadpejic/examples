@@ -59,16 +59,8 @@ export const getAllTodosUsingFetch = (): ThunkAction<
   }
 
 // Synchronous example
-export const getAllTodosSync = (): TodosGetAllAction => {
+export const resetTodosGetAllState = (): TodosGetAllAction => {
   return {
-    type: "todosGetAll/fulfilled",
-    payload: [
-      {
-        id: 1,
-        completed: false,
-        title: 'Example title',
-        userId: 1
-      }
-    ]
+    type: "todosGetAll/reset"
   }
 }
