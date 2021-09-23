@@ -20,26 +20,18 @@ function App() {
   return (
     <div className="App">
 
-      {error &&
-        <div style={{ color: 'red' }}>{error.message}</div>
-      }
+      <button onClick={handleClickGetAllTodos}>Get All Todos</button>
+      <button onClick={handleClickReset}>Reset</button>
 
-      <div style={{ position: 'relative' }}>
-        {isLoading &&
-          <div style={{ position: 'absolute', inset: '0px', backgroundColor: 'rgba(255, 255, 255, 0.75)', display: 'flex' }}>
-            <span style={{ margin: 'auto' }}>Loading...</span>
-          </div>
-        }
+      {isLoading && <p>Loading...</p>}
 
-        <button onClick={handleClickGetAllTodos}>Get All Todos</button>
-        <button onClick={handleClickReset}>Reset</button>
+      {error && <p style={{ color: 'red' }}>{error.message}</p>}
 
-        <ul>
-          {todos?.map(todo => (
-            <li key={todo.id}>{todo.title}</li>
-          ))}
-        </ul>
-      </div>
+      <ul>
+        {todos?.map(todo => (
+          <li key={todo.id}>{todo.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }
