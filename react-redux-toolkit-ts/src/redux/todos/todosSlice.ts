@@ -15,7 +15,8 @@ const todosSlice = createSlice({
   reducers: {
     setTodos: (state, action: PayloadAction<Todo[]>) => {
       state.todos = action.payload
-    }
+    },
+    resetTodosState: () => initialState,
   },
   extraReducers: (builder) => {
     // GET
@@ -86,6 +87,6 @@ const todosSlice = createSlice({
   }
 })
 
-export const { setTodos } = todosSlice.actions
+export const { setTodos, resetTodosState } = todosSlice.actions
 
 export default todosSlice

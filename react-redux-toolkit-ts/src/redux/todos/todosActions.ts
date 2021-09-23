@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosJsonplaceholder } from "../../axios";
+import { axiosJsonplaceholder } from "services/axios";
 import { NewTodo, Todo } from "./todosTypes";
 
 export const getTodos = createAsyncThunk(
