@@ -61,6 +61,6 @@ export const getAllTodosUsingFetch = (): ThunkAction<
 // Synchronous example
 export const resetTodosGetAllState = (): TodosGetAllAction => {
   return {
-    type: "todosGetAll/reset"
+    type: "todosGetAllReset"
   }
 }

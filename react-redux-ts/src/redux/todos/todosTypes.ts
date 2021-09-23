@@ -26,7 +26,7 @@ interface TodosGetAllRejectedAction {
 }
 
 interface TodosGetAllResetAction {
-  type: "todosGetAll/reset"
+  type: "todosGetAllReset"
 }
 
 export type TodosGetAllAction = TodosGetAllPendingAction | TodosGetAllFulfilledAction | TodosGetAllRejectedAction | TodosGetAllResetAction
