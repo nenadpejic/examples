@@ -9,9 +9,11 @@ const initialState: TodosGetAllState = {
 }
 
 const todosGetAllSlice = createSlice({
-  name: 'todosGetAll',
+  name: 'todos/getAllTodos',
   initialState,
-  reducers: {},
+  reducers: {
+    reset: () => initialState,
+  },
   extraReducers: builder => {
     builder.addCase(getAllTodos.pending, (state, _) => {
       state.isLoading = true
@@ -28,5 +30,9 @@ const todosGetAllSlice = createSlice({
     })
   }
 })
+
+const { reset } = todosGetAllSlice.actions;
+
+export { reset as resetTodosGetAll }
 
 export default todosGetAllSlice

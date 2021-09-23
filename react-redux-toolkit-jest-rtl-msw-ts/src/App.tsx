@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hoooks';
 import { getAllTodos } from 'redux/todos/todosGetAll/todosGetAllAction';
+import { resetTodosGetAll } from 'redux/todos/todosGetAll/todosGetAllSlice';
 import { Todo } from 'redux/todos/todoType';
 import { updateTodo } from 'redux/todos/todoUpdate/todoUpdateAction';
 
@@ -12,6 +13,10 @@ function App() {
 
   const handleClickGetTodos = () => {
     dispatch(getAllTodos())
+  }
+
+  const handleClickReset = () => {
+    dispatch(resetTodosGetAll())
   }
 
   const handleClickEdit = (todo: Todo) => {
@@ -31,6 +36,7 @@ function App() {
     <div className="App">
 
       <button onClick={handleClickGetTodos}>Get Todos</button>
+      <button onClick={handleClickReset}>Reset</button>
 
       {(todosGetAllIsLoading || todoUpdateIsLoading) && <p role="progressbar">Loading...</p>}
 
