@@ -1,0 +1,13 @@
+{
+  "name": "node-scaffold",
+  "version": "1.0.0",
+  "description": "Example of writting a script to automate folter and file creation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-component": "node create-component.js",
+    "create-reducer": "node create-reducer.js"
+  },
+  "author": "Nenad Pejic",
+  "license": "ISC"
+}
