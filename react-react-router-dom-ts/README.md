@@ -1,16 +1,23 @@
 # React react-router-dom ts
 
-React app, using react-router-dom, in typescript.
+Example of using React Router Dom in a React app.
 
-## Instructions
+## Technologies
 
-1. Create React app
+- create-react-app
+- @types/react-router-dom
+- react-router-dom
+- typescript
+
+## Setup
+
+- Initialize with create-react-app:
 
 ```bash
 $ npx create-react-app react-react-router-dom --template typescript
 ```
 
-2. Install dependencies
+- Install dependencies:
 
 ```bash
 $ npm i react-router-dom

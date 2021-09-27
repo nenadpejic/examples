@@ -1,8 +1,9 @@
-# react redux toolkit jest rtl msw ts
+# React redux toolkit jest rtl msw ts
 
-This is an example of testing a React app with Redux via @reduxjs/toolkit, using Jest with React Testing Library and Mock Service Worker and a custom render function.
+Example of testing a React app using Jest with React Testing Library and Mock Service Worker and a custom render function.
 
-Technologies:
+## Technologies
+
 - create-react-app
 - typescript
 - axios
@@ -11,23 +12,25 @@ Technologies:
 - react-testing-library
 - mock-service-worker
 
-# Setup
+## Setup
 
-- Initialize
-```
+- Initialize with create-react-app:
+
+```bash
 $ npx create-react-app react-redux-toolkit-jest-rtl-msw-ts --template typescript
 ```
 
-- Install dependencies
-```
+- Install dependencies:
+
+```bash
 $ npm i axios @reduxjs/toolkit react-redux
 $ npm i -D msw
 ```
 
-- Setup axios
+- Setup axios:
   - Create axios instance
 
-- Setup redux
+- Setup redux:
   - Create store 
   - Create reducer 
   - Create hooks 
@@ -36,7 +39,7 @@ $ npm i -D msw
   - Create actions 
   - Introduce store in index.tsx
 
-- Setup msw
+- Setup msw:
   - Create handlers
   - Create server
   - Create browser
@@ -46,5 +49,5 @@ $ npm i -D msw
   $ npx msw init public/ --save
   ```
 
-- Setup test
+- Setup test:
   - Create App.test.tsx

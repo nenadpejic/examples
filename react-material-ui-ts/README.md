@@ -1,16 +1,25 @@
-# React material-ui
+# React material-ui ts
 
-React app, using material-ui, in typescript.
+Example of using material-ui in a React app.
 
-## Instructions
+## Technologies
 
-1. Create React app
+- create-react-app
+- @material-ui/core
+- @material-ui/icons
+- @types/react-router-dom
+- react-router-dom
+- typescript
+
+## Setup
+
+- Initialize with create-react-app:
 
 ```bash
 $ npx create-react-app . --template typescript
 ```
 
-2. Install dependencies
+- Install dependencies:
 
 ```bash
 $ npm i @material-ui/core @material-ui/icons

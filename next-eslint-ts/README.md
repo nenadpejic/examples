@@ -1,18 +1,23 @@
-# next eslint ts
+# Next eslint ts
 
-Example next app, with eslint and typescript.
+Example of using eslint in a Next app.
 
-# Initialization
+> NOTE: Since version 11.0.0, Next.js provides an integrated ESLint experience out of the box.
+
+## Technologies
+
+- create-next-app
+- eslint
+- typescript
+
+## Setup
 
 ```bash
 $ npx create-next-app next-eslint-ts --ts
 ```
 
-# Setup
+### Since v11.0.0
 
-## NOTE
-
-- Since version 11.0.0, Next.js provides an integrated ESLint experience out of the box.
 - Add `next lint` as a script to `package.json`.
 
 ```
@@ -29,7 +34,7 @@ $ npm run lint
 
 - This creates a `.eslintrc.json` file, and adds `eslint, eslint-config-next` as devDependencies.
 
-## Pre v11.0.0
+### Pre v11.0.0
 
 - Add devDependencies
 
@@ -49,7 +54,7 @@ $ npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser babel-esli
 }
 ```
 
-### Added devDependencies
+#### Added devDependencies
 
 - ESLint
   - @typescript-eslint/eslint-plugin

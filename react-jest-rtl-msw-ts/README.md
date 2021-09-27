@@ -1,8 +1,9 @@
-# react jest rtl msw ts
+# React jest rtl msw ts
 
 Example of testing a React app with Jest, React Testing Library and Mock Service Worker.
 
-Technologies:
+## Technologies
+
 - create-react-app
 - typescript
 - axios
@@ -12,12 +13,13 @@ Technologies:
 
 ## Setup
 
-- Initialize with create-react-app
+- Initialize with create-react-app:
+
 ```bash
 $ npx create-react-app react-jest-rtl-msw-ts --template typescript
 ```
 
-- Install dependencies
+- Install dependencies:
 
 ```bash
 $ npm i axios

@@ -1,16 +1,22 @@
 # express socket
 
-Example express app, with socket.
+Example of using socket.io in an Express app.
 
-# Initialization
+## Technologies
 
-Initialize npm
+- express
+- socket.io
+- nodemon
+
+# Setup
+
+- Initialize npm:
 
 ```
 $ npm init
 ```
 
-# Install dependencies
+- Install dependencies:
 
 ```
 $ npm i express socket.io

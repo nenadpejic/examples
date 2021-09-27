@@ -1,14 +1,24 @@
-# github actions react ts
+# Github actions react ts
 
-Example of using github-actions, with a React app.
+Example of using github-actions with a React app.
 
-# Setup
+## Technologies
 
-- Initialize app with create-react-app
+- create-react-app
+- typescript
 
-- Create repo
+## Setup
 
-- Connect to remote
+- Initialize app with create-react-app:
+
+```bash
+$ npx create-react-app github-actions-react-ts --template typescript
+```
+
+- Create a GitHub repo
+
+- Connect to remote:
+
 ```bash
 $ git remote add origin git@github.com:...
 $ git branch -M main
@@ -17,7 +27,8 @@ $ git push -u origin main
 
 - Setup tests
 
-- Create `client-test.yaml` via github actions, or create a `.github/workflows/client-test.yaml` file in root dir
+- Create a `client-test.yaml` via github actions, or create a `.github/workflows/client-test.yaml` file in root dir
+
 ```yml
 name: client-test
 

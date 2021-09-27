@@ -1,11 +1,9 @@
-# react redux toolkit jest rtl ts
+# React redux toolkit jest rtl ts
 
-This is an example react app, with axios, with redux via @reduxjs/toolkit, testing with jest and react testing library, in typescript.
+Example of testing a React app using Jest with React Testing Library.
 
+## Technologies
 
-This is an example of testing a React app with Redux via @reduxjs/toolkit, using Jest with React Testing Library.
-
-Technologies:
 - create-react-app
 - typescript
 - axios
@@ -13,22 +11,24 @@ Technologies:
 - jest
 - react-testing-library
 
-# Setup
+## Setup
 
-- Initialize
+- Initialize with create-react-app:
+
 ```bash
 $ npx create-react-app react-redux-toolkit-jest-rtl-ts --template typescript
 ```
 
-- Install dependencies
+- Install dependencies:
+
 ```bash
 $ npm i axios @reduxjs/toolkit react-redux
 ```
-- Setup axios
+- Setup axios:
   - Create axios instance
   - Create todos services
 
-- Setup redux
+- Setup redux:
   - Create store 
   - Create reducer 
   - Create hooks 
@@ -37,5 +37,5 @@ $ npm i axios @reduxjs/toolkit react-redux
   - Create actions 
   - Introduce store in index.tsx
 
-- Setup tests
+- Setup tests:
   - Create App.test.tsx
