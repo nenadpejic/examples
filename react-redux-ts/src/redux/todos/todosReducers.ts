@@ -9,7 +9,7 @@ const initialState: TodosGetAllState = {
 export const todosGetAllReducer = (
   state = initialState,
   action: TodosGetAllAction
-) => {
+): TodosGetAllState => {
   switch (action.type) {
     case "todosGetAll/pending":
       return {

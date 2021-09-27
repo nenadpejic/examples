@@ -6,7 +6,7 @@ import { TodosGetAllAction } from "./todosTypes";
 export const getAllTodos = (): ThunkAction<
   void, // TReturnType
   RootState, // TState
-  unknown, // TExtraThunkARg
+  unknown, // TExtraThunkArg
   TodosGetAllAction // TBasicAction
 > => async (
   dispatch,
@@ -36,7 +36,7 @@ export const getAllTodos = (): ThunkAction<
 export const getAllTodosUsingFetch = (): ThunkAction<
   void, // TReturnType
   RootState, // TState
-  unknown, // TExtraThunkARg
+  unknown, // TExtraThunkArg
   TodosGetAllAction // TBasicAction
 > => async (
   dispatch,
