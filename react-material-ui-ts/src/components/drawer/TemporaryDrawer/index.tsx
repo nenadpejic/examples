@@ -39,7 +39,7 @@ const TemporaryDrawer: React.FC = () => {
   }
 
   return <>
-    <IconButton aria-label="nav-menu" onClick={toggleDrawer(true)} size="large">
+    <IconButton onClick={toggleDrawer(true)}>
       <MenuIcon />
     </IconButton>
 

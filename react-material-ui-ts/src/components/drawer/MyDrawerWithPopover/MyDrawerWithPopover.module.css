@@ -1,0 +1,16 @@
+.drawer {
+  z-index: 1200 !important;
+}
+
+.list_container {
+  margin-top: 48px;
+  width: 250px;
+}
+
+.popover {
+  pointer-events: none;
+}
+
+.paper {
+  pointer-events: auto;
+}
