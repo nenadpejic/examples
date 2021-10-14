@@ -4,7 +4,7 @@ import ControlledAccordion from './components/accordion/ControlledAccordion';
 import AlertDialog from './components/dialog/AlertDialog';
 import MyDrawerWithPopover from './components/drawer/MyDrawerWithPopover';
 import TemporaryDrawer from './components/drawer/TemporaryDrawer';
-import SimpleMenu from './components/menu/SimpleMenu';
+import BasicMenu from './components/menu/BasicMenu';
 import MouseOverPopover from './components/popover/MouseOverPopover';
 import BasicTable from './components/table/BasicTable';
 import TableWithPagination from './components/table/TableWithPagination';
@@ -21,14 +21,14 @@ function App() {
         {/* <AlertDialog /> */}
 
         {/* <TemporaryDrawer /> */}
-        <MyDrawerWithPopover />
+        {/* <MyDrawerWithPopover /> */}
+
+        <BasicMenu />
 
         {/* <BasicTable /> */}
         {/* <TableWithPagination /> */}
         {/* <TableWithSelecting /> */}
         {/* <TableWithSorting /> */}
-
-        {/* <SimpleMenu /> */}
 
         {/* <MouseOverPopover /> */}
       </Router>
