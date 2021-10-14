@@ -57,9 +57,9 @@ const WithPagination = () => {
         <TableFooter>
           <TableRow>
             <TablePagination
+              component="td"
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={5}
-              component="td"
               count={deserts.length}
               rowsPerPage={rowsPerPage}
               page={page}
@@ -67,8 +67,8 @@ const WithPagination = () => {
                 inputProps: { 'aria-label': 'rows per page' },
                 native: true,
               }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
               // optional, without this it will have just 2 buttons
               ActionsComponent={TablePaginationActions}
             />
