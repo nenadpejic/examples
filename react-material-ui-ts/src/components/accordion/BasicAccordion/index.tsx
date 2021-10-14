@@ -4,10 +4,9 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import React from 'react'
-import styles from './SimpleAccordion.module.css'
+import styles from './BasicAccordion.module.css'
 
-const SimpleAccordion = () => {
-
+const BasicAccordion = () => {
   return (
     <div className={styles.root}>
       <Accordion>
@@ -57,4 +56,4 @@ const SimpleAccordion = () => {
   )
 }
 
-export default SimpleAccordion
+export default BasicAccordion
