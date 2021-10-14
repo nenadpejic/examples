@@ -18,26 +18,23 @@ const MouseOverPopover = () => {
 
   return (
     <div
-      // To have the popover stay open even when hovering the popover, set onMouse.. events to the containing div here and add pointer-events: auto to .paper
-      onMouseEnter={handlePopoverOpen}
-      onMouseLeave={handlePopoverClose}
+    // NOTE: To have the popover stay open while hovering Typography and Popover, set onMouse events here and add { pointer-events: auto } to .popover_paper
+    // onMouseEnter={handlePopoverOpen}
+    // onMouseLeave={handlePopoverClose}
     >
       <Typography
         aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
-      // To display the popover only when hovering this Typography, set onMouse.. events here and remove pointer-events: auto from .paper
-      // onMouseEnter={handlePopoverOpen}
-      // onMouseLeave={handlePopoverClose}
+        // To display the popover only when hovering the Typography, set onMouse events here
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
       >
         Hover with a Popover.
       </Typography>
 
       <Popover
         id="mouse-over-popover"
-        className={styles.popover}
-        classes={{
-          paper: styles.paper,
-        }}
+        sx={{ pointerEvents: 'none' }}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -51,7 +48,7 @@ const MouseOverPopover = () => {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography>I use Popover.</Typography>
+        <Typography className={styles.popover_paper}>I use Popover.</Typography>
       </Popover>
     </div>
   )

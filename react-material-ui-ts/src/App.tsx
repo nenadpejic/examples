@@ -23,14 +23,14 @@ function App() {
         {/* <TemporaryDrawer /> */}
         {/* <MyDrawerWithPopover /> */}
 
-        <BasicMenu />
+        {/* <BasicMenu /> */}
+
+        <MouseOverPopover />
 
         {/* <BasicTable /> */}
         {/* <TableWithPagination /> */}
         {/* <TableWithSelecting /> */}
         {/* <TableWithSorting /> */}
-
-        {/* <MouseOverPopover /> */}
       </Router>
     </div>
   );

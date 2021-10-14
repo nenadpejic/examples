@@ -112,7 +112,7 @@ const MyDrawerWithPopover: React.FC = () => {
                   <Popover
                     disableRestoreFocus
                     id="nav-drawer-popover"
-                    className={styles.popover}
+                    sx={{ pointerEvents: 'none' }}
                     classes={{ paper: styles.paper }}
                     anchorOrigin={{
                       vertical: 'top',
