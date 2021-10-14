@@ -3,10 +3,6 @@
   margin: 1rem auto;
 }
 
-.table {
-  min-width: 650px;
-}
-
-.table thead tr th {
+.thead tr th {
   font-weight: bold;
 }

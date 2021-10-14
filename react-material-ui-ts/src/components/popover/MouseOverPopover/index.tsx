@@ -1,6 +1,6 @@
 import React from 'react'
-import Popover from '@material-ui/core/Popover'
-import Typography from '@material-ui/core/Typography'
+import Popover from '@mui/material/Popover'
+import Typography from '@mui/material/Typography'
 import styles from './MouseOverPopover.module.css'
 
 const MouseOverPopover = () => {

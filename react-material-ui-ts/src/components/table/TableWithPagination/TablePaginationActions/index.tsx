@@ -1,69 +1,75 @@
-import IconButton from '@material-ui/core/IconButton'
-import FirstPageIcon from '@material-ui/icons/FirstPage'
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import LastPageIcon from '@material-ui/icons/LastPage'
-import React from 'react'
-import styles from './TablePaginationActions.module.css'
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import { useTheme } from '@mui/material/styles';
+import React from 'react';
 
 interface TablePaginationActionsProps {
   count: number
   page: number
   rowsPerPage: number
-  onChangePage: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void
+  onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void
 }
 
 const TablePaginationActions = (props: TablePaginationActionsProps) => {
-  const { count, page, rowsPerPage, onChangePage } = props
+  const theme = useTheme();
+  const { count, page, rowsPerPage, onPageChange } = props
 
   const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onChangePage(event, 0)
+    onPageChange(event, 0)
   }
 
   const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onChangePage(event, page - 1)
+    onPageChange(event, page - 1)
   }
 
   const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onChangePage(event, page + 1)
+    onPageChange(event, page + 1)
   }
 
   const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1))
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1))
   }
 
   return (
-    <div className={styles.root}>
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
       <IconButton
+        size="large"
         aria-label="first page"
         disabled={page === 0}
         onClick={handleFirstPageButtonClick}
       >
-        <FirstPageIcon />
+        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
+        size="large"
         aria-label="previous page"
         disabled={page === 0}
         onClick={handleBackButtonClick}
       >
-        <KeyboardArrowLeft />
+        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
       </IconButton>
       <IconButton
+        size="large"
         aria-label="next page"
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         onClick={handleNextButtonClick}
       >
-        <KeyboardArrowRight />
+        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
       <IconButton
+        size="large"
         aria-label="last page"
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         onClick={handleLastPageButtonClick}
       >
-        <LastPageIcon />
+        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
-    </div>
-  )
+    </Box>
+  );
 }
 
 export default TablePaginationActions

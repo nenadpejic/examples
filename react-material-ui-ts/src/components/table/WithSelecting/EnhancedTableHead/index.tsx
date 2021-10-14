@@ -1,7 +1,7 @@
-import Checkbox from '@material-ui/core/Checkbox'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import TableCell from '@material-ui/core/TableCell'
+import Checkbox from '@mui/material/Checkbox'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
 
 interface Props {
   numSelected: number

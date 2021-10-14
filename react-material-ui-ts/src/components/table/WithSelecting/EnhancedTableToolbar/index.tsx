@@ -1,16 +1,18 @@
-import IconButton from '@material-ui/core/IconButton'
-import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles'
-import Toolbar from '@material-ui/core/Toolbar'
-import Tooltip from '@material-ui/core/Tooltip'
-import Typography from '@material-ui/core/Typography'
-import DeleteIcon from '@material-ui/icons/Delete'
-import FilterListIcon from '@material-ui/icons/FilterList'
+import IconButton from '@mui/material/IconButton'
+import { lighten, Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import Toolbar from '@mui/material/Toolbar'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import DeleteIcon from '@mui/icons-material/Delete'
+import FilterListIcon from '@mui/icons-material/FilterList'
 import styles from './EnhancedTableToolbar.module.css'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     highlight:
-      theme.palette.type === 'light'
+      theme.palette.mode === 'light'
         ? {
           color: theme.palette.secondary.main,
           backgroundColor: lighten(theme.palette.secondary.light, 0.85),
@@ -42,19 +44,19 @@ const EnhancedTableToolbar: React.FC<Props> = ({ numSelected }) => {
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" size="large">
             <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
+          <IconButton aria-label="filter list" size="large">
             <FilterListIcon />
           </IconButton>
         </Tooltip>
       )}
     </Toolbar>
-  )
+  );
 }
 
 export default EnhancedTableToolbar
