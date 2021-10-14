@@ -14,10 +14,10 @@ function App() {
   return (
     <div className="app">
       <Router>
-        {/* <BasicTable /> */}
+        <BasicTable />
         {/* <TableWithPagination /> */}
         {/* <TableWithSelecting /> */}
-        <TableWithSorting />
+        {/* <TableWithSorting /> */}
         {/* <AlertDialog /> */}
         {/* <SimpleMenu /> */}
         {/* <SimpleDrawer /> */}

@@ -77,8 +77,9 @@ const TableWithSorting = () => {
   const [order, setOrder] = useState<Order>('asc')
   const [orderBy, setOrderBy] = useState<keyof Data>('calories')
 
-  const handleClickSort = (property: keyof Data) => {
-    setOrder(orderBy === property && order === 'asc' ? 'desc' : 'asc')
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc')
     setOrderBy(property)
   }
 
@@ -88,7 +89,7 @@ const TableWithSorting = () => {
         <EnhancedTableHead
           order={order}
           orderBy={orderBy}
-          onClickSort={handleClickSort}
+          onRequestSort={handleRequestSort}
         />
         <TableBody>
           {/* stableSort(rows, getComparator(order, orderBy)) */}

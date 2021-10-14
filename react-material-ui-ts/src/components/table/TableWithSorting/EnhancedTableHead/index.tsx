@@ -1,9 +1,10 @@
+import Box from '@mui/material/Box'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableSortLabel from '@mui/material/TableSortLabel'
+import { visuallyHidden } from '@mui/utils'
 import { Data, Order } from '../types'
-import styles from './EnhancedTableHead.module.css'
 
 interface HeadCell {
   id: keyof Data
@@ -20,10 +21,15 @@ const headCells: HeadCell[] = [
 interface Props {
   order: Order
   orderBy: keyof Data
-  onClickSort: (property: keyof Data) => void
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void
 }
 
-const EnhancedTableHead: React.FC<Props> = ({ order, orderBy, onClickSort }) => {
+const EnhancedTableHead: React.FC<Props> = ({ order, orderBy, onRequestSort }) => {
+
+  const createSortHandler =
+    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+      onRequestSort(event, property);
+    };
 
   return (
     <TableHead>
@@ -37,13 +43,13 @@ const EnhancedTableHead: React.FC<Props> = ({ order, orderBy, onClickSort }) => 
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={() => onClickSort(headCell.id)}
+              onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
-                <span className={styles.visuallyHidden}>
+                <Box sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
+                </Box>
               ) : null}
             </TableSortLabel>
           </TableCell>
