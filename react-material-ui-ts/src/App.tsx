@@ -1,7 +1,7 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import BasicTable from './components/table/BasicTable'
 import TableWithPagination from './components/table/TableWithPagination'
-import WithSorting from './components/table/WithSorting'
+import TableWithSorting from './components/table/TableWithSorting'
 import TableWithSelecting from './components/table/TableWithSelecting'
 import AlertDialog from './components/dialog/AlertDialog'
 import SimpleMenu from './components/menu/SimpleMenu'
@@ -16,8 +16,8 @@ function App() {
       <Router>
         {/* <BasicTable /> */}
         {/* <TableWithPagination /> */}
-        {/* <WithSorting /> */}
-        <TableWithSelecting />
+        {/* <TableWithSelecting /> */}
+        <TableWithSorting />
         {/* <AlertDialog /> */}
         {/* <SimpleMenu /> */}
         {/* <SimpleDrawer /> */}
