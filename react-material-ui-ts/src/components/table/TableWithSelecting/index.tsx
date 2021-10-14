@@ -6,17 +6,36 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableRow from '@mui/material/TableRow'
 import React from 'react'
-import deserts from './deserts.json'
 import EnhancedTableHead from './EnhancedTableHead'
 import EnhancedTableToolbar from './EnhancedTableToolbar'
-import styles from './WithSelecting.module.css'
+import styles from './TableWithSelecting.module.css'
 
-const WithSelecting = () => {
+function createData(name: string, calories: number, fat: number) {
+  return { name, calories, fat };
+}
+
+const rows = [
+  createData('Cupcake', 305, 3.7),
+  createData('Donut', 452, 25.0),
+  createData('Eclair', 262, 16.0),
+  createData('Frozen yoghurt', 159, 6.0),
+  createData('Gingerbread', 356, 16.0),
+  createData('Honeycomb', 408, 3.2),
+  createData('Ice cream sandwich', 237, 9.0),
+  createData('Jelly Bean', 375, 0.0),
+  createData('KitKat', 518, 26.0),
+  createData('Lollipop', 392, 0.2),
+  createData('Marshmallow', 318, 0),
+  createData('Nougat', 360, 19.0),
+  createData('Oreo', 437, 18.0),
+].sort((a, b) => (a.calories < b.calories ? -1 : 1));
+
+const TableWithSelecting = () => {
   const [selected, setSelected] = React.useState<string[]>([])
 
   const handleClickSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = deserts.map((n) => n.name)
+      const newSelecteds = rows.map((n) => n.name)
       setSelected(newSelecteds)
     } else {
       setSelected([])
@@ -47,23 +66,23 @@ const WithSelecting = () => {
         >
           <EnhancedTableHead
             numSelected={selected.length}
-            rowCount={deserts.length}
+            rowCount={rows.length}
             onClickSelectAll={handleClickSelectAll}
           />
           <TableBody>
-            {deserts.map((desert, index) => {
-              const isSelected = selected.includes(desert.name)
+            {rows.map((row, index) => {
+              const isSelected = selected.includes(row.name)
               const labelId = `enhanced-table-checkbox-${index}`
 
               return (
                 <TableRow
-                  key={desert.name}
+                  key={row.name}
                   hover
                   role="checkbox"
                   tabIndex={-1}
                   aria-checked={isSelected}
                   selected={isSelected}
-                  onClick={() => handleClickSelect(desert.name)}
+                  onClick={() => handleClickSelect(row.name)}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -71,9 +90,9 @@ const WithSelecting = () => {
                       inputProps={{ 'aria-labelledby': labelId }}
                     />
                   </TableCell>
-                  <TableCell component="th" id={labelId} scope="row" padding="none">{desert.name}</TableCell>
-                  <TableCell align="right">{desert.calories}</TableCell>
-                  <TableCell align="right">{desert.fat}</TableCell>
+                  <TableCell component="th" id={labelId} scope="row" padding="none">{row.name}</TableCell>
+                  <TableCell align="right">{row.calories}</TableCell>
+                  <TableCell align="right">{row.fat}</TableCell>
                 </TableRow>
               )
             })}
@@ -84,4 +103,4 @@ const WithSelecting = () => {
   )
 }
 
-export default WithSelecting
+export default TableWithSelecting
