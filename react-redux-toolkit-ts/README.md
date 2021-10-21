@@ -7,8 +7,7 @@ Example of using Redux via @reduxjs/toolkit as store management in a React app.
 - create-react-app
 - redux
 - react-redux
-- redux-thunk
-- redux-devtools-extension
+- reduxjs/toolkit
 - typescript
 - axios
 
@@ -27,15 +26,18 @@ $ npm i @reduxjs/toolkit react-redux axios
 ```
 
 - Setup store:
+
   - Create redux/store.ts
   - Use `configureStore()`
   - Wrap app with `<Provider>`
 
 - Setup axios:
+
   - Create axios.ts
   - Create axiosJP, use `axios.create()`
 
 - Setup todos slice, types, actions:
+
   - Create redux/todos/todosSlice.ts
   - Use `createSlice()`
   - Create redux/todos/todosTypes.ts
@@ -45,6 +47,7 @@ $ npm i @reduxjs/toolkit react-redux axios
   - Use `createAsyncThunk()`
 
 - Setup custom hooks:
+
   - Create redux/hooks.ts
   - Create `useAppSelector()`, `useAppDispatch()`
   - Export `AppState`, `AppDispatch` from store.ts
