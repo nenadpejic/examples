@@ -12,7 +12,7 @@ Example of using useReducer in an React app.
 - Initialize with create-react-app:
 
 ```bash
-$ npx create-react-app react-use-reducer-ts --template typescript
+$ npx create-react-app react-usereducer-ts --template typescript
 ```
 
 - Setup redux:
