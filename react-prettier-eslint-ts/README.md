@@ -14,6 +14,7 @@ Example of using eslint in a React app.
 - eslint-plugin-react
 - eslint-plugin-react-hooks
 - prettier
+- eslint-config-prettier
 
 ## Setup
 
@@ -53,4 +54,16 @@ $ npx create-react-app react-prettier-eslint-ts --template typescript
 
   ```json
   "lint": "eslint ./src --ext .ts,.tsx"
+  ```
+
+  - Avoid conflicts with prettier
+
+  ```bash
+  $ npm i -D eslint-config-prettier
+  ```
+
+  ```json
+  {
+    "extends": ["...", "prettier"]
+  }
   ```
