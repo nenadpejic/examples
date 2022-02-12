@@ -11,11 +11,11 @@ Example of writting a script to automate folder and file creation.
 - Create react component:
 
 ```bash
-$ npm create-component Spinner
+$ npm run create-component Spinner
 ```
 
 - Create redux reducer:
 
 ```bash
-$ npm create-reducer todos/todosGetAll
+$ npm run create-reducer todos/todosGetAll
 ```
