@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @keyframes slide-up {
+        0% {
+          transform: translateY(100px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+      .animate {
+        animation: slide-up 2s linear;
+      }
+      .hidden {
+        visibility: hidden;
+      }
+      .text {
+        background-color: grey;
+        height: 100px;
+        margin-top: 110vh;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="text hidden">Example text</p>
+
+    <script>
+      const options = {
+        root: null, // If null defaults to the browsers viewport
+        rootMargin: "0px",
+        threshold: 0.3,
+      };
+
+      const textObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          const {
+            boundingClientRect,
+            intersectionRatio,
+            intersectionRect,
+            isIntersecting,
+            rootBounds,
+            target,
+            time,
+          } = entry;
+          if (isIntersecting) {
+            const targetEl = entry.target;
+            observer.unobserve(targetEl);
+            targetEl.classList.remove("hidden");
+            targetEl.classList.add("animate");
+          }
+        });
+      }, options);
+
+      const textEl = document.querySelector(".text");
+      textObserver.observe(textEl);
+    </script>
+  </body>
+</html>
