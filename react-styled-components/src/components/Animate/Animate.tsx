@@ -73,6 +73,11 @@ const StyledDiv = styled.div<{
     duration,
     timingFunction,
   }) => {
+    if (typeof window !== 'undefined') {
+      const hasIOSupport = !!window?.IntersectionObserver
+      if (!hasIOSupport) return
+    }
+
     const amountInPixels = theme.animationSpace[amount]
     const commonStyles = `
       ${delay ? `animation-delay: ${delay}s;` : ''}

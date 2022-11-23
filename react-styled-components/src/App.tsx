@@ -1,9 +1,11 @@
+import { useRef } from 'react'
 import './App.css'
 import Animate from './components/Animate/Animate'
 import useAnimationTrigger from './hooks/useAnimationTrigger'
 
 function App() {
-  const { animationThresholdRef, isAnimating } = useAnimationTrigger()
+  const animationThresholdRef = useRef<HTMLElement>(null)
+  const { isAnimating } = useAnimationTrigger(animationThresholdRef)
 
   return (
     <div className="App">

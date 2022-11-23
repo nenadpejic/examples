@@ -1,38 +1,37 @@
-import { useEffect, useRef, useState } from 'react'
+import { MutableRefObject, useEffect, useState } from 'react'
 
-const useAnimationTrigger = (threshold = 0.3) => {
-  const animationThresholdRef = useRef<HTMLDivElement>(null)
+const useAnimationTrigger = (
+  elementRef: MutableRefObject<Element | null>,
+  intersectionObserverInit = {
+    root: null, // If null defaults to the browsers viewport
+    rootMargin: '0px',
+    threshold: 0.2,
+  }
+) => {
   const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
-    if (!animationThresholdRef.current) {
-      return
-    }
+    const hasIOSupport = !!window.IntersectionObserver
+    const node = elementRef?.current
 
-    const options = {
-      root: null, // If null defaults to the browsers viewport
-      rootMargin: '0px',
-      threshold,
-    }
+    if (!hasIOSupport || !node) return
 
     const intersectionObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          const { isIntersecting } = entry
-
-          if (isIntersecting) {
-            observer.disconnect()
-            setIsAnimating(true)
-          }
-        })
+      ([entry], observer) => {
+        if (entry.isIntersecting) {
+          setIsAnimating(true)
+          observer.disconnect()
+        }
       },
-      options
+      intersectionObserverInit
     )
 
-    intersectionObserver.observe(animationThresholdRef.current)
-  }, [threshold])
+    intersectionObserver.observe(node)
 
-  return { isAnimating, animationThresholdRef }
+    return () => intersectionObserver.disconnect()
+  }, [elementRef, intersectionObserverInit])
+
+  return { isAnimating }
 }
 
 export default useAnimationTrigger
