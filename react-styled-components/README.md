@@ -19,24 +19,7 @@ NOTES:
 
 - There are multiple ways to setup animations. Using the fade-in animtion as an example.
 
-1. [Option 1] You can dynamically switch between two styles based on animation trigger validation. Once the animation ends it returns to having no styling set.
-
-```
-isAnimating
-  ? css`
-      animation-name: ${keyframes`
-          from {
-            opacity: 0;
-          } to {
-            opacity: 1;
-          }
-        `};
-      ${commonStyles}
-    `
-  : 'opacity: 0;'
-```
-
-2. [Option 2] You can set the initial style to be always present, and then add the animation styling on animation trigger validation. This way you will need the `animation-fill-mode: forwards` in order to keep the style from reverting to the initial style set.
+1. [Option 1] You can set the initial style to be always present, and then add the animation styling on animation trigger validation. This way you will need the `animation-fill-mode: forwards` in order to keep the style from reverting to the initial style set.
 
 ```
 `
@@ -56,4 +39,21 @@ ${
   `
 }
 `
+```
+
+2. [Option 2] You can dynamically switch between two styles based on animation trigger validation. Once the animation ends it returns to having no styling set. This doesn't work if you have animations with delay, because the animation will trigger, opacity will reset to 1 and it will wait a bit for the animation to actual start.
+
+```
+isAnimating
+  ? css`
+      animation-name: ${keyframes`
+          from {
+            opacity: 0;
+          } to {
+            opacity: 1;
+          }
+        `};
+      ${commonStyles}
+    `
+  : 'opacity: 0;'
 ```
