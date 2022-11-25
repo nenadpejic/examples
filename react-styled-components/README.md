@@ -11,9 +11,9 @@ Example react app using styled components
 - Create custom component `Animate`
 - Create custom hook `useAnimationTriger`
 - Wrap component you want to animate in the `Animate` component
-- Call the `useAnimationTrigger` hook to get the `isAnimating` boolean value and `animationThresholdRef` reference
+- Call the `useAnimationTrigger` hook to get the `shouldAnimate` boolean value and `animationThresholdRef` reference
 - Set the `animationThresholdRef` as a ref on the component which threshold you want watched ti determin when the animation starts
-- Set the `isAnimating` to the `Animate` component so it knows when to start the animation
+- Set the `shouldAnimate` to the `Animate` component so it knows when to start the animation
 
 NOTES:
 
@@ -26,7 +26,7 @@ NOTES:
 opacity: 0;
 animation-fill-mode: forwards;
 ${
-  isAnimating &&
+  shouldAnimate &&
   css`
     animation-name: ${keyframes`
         from {
@@ -41,10 +41,10 @@ ${
 `
 ```
 
-2. [Option 2] You can dynamically switch between two styles based on animation trigger validation. Once the animation ends it returns to having no styling set. This doesn't work if you have animations with delay, because the animation will trigger, opacity will reset to 1 and it will wait a bit for the animation to actual start.
+2. [Option 2] You can dynamically switch between two styles based on animation trigger validation. Once the animation ends it returns to having no styling set. NOTE: This doesn't work if you have animations with delay, because the animation will trigger, opacity will reset to 1 and it will wait a bit for the animation to actual start.
 
 ```
-isAnimating
+shouldAnimate
   ? css`
       animation-name: ${keyframes`
           from {

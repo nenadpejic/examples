@@ -12,7 +12,7 @@ type AnimateType =
 
 type CommonProps = {
   children?: ReactNode
-  isAnimating: boolean
+  shouldAnimate: boolean
   duration?: number
   timingFunction?: string
   delay?: number
@@ -32,7 +32,7 @@ type AnimateProps = CommonProps & ConditionalProps
 
 const Animate = ({
   children,
-  isAnimating,
+  shouldAnimate,
   duration = 1,
   timingFunction = 'ease',
   delay,
@@ -41,10 +41,10 @@ const Animate = ({
   ...rest
 }: AnimateProps) => {
   return (
-    <StyledDiv
+    <StyledBox
       as="div"
       animate={animate}
-      isAnimating={isAnimating}
+      shouldAnimate={shouldAnimate}
       amount={amount}
       duration={duration}
       timingFunction={timingFunction}
@@ -52,12 +52,12 @@ const Animate = ({
       {...rest}
     >
       {children}
-    </StyledDiv>
+    </StyledBox>
   )
 }
 
-const StyledDiv = styled.div<{
-  isAnimating: boolean
+const StyledBox = styled.div<{
+  shouldAnimate: boolean
   duration: number
   timingFunction: string
   delay?: number
@@ -66,7 +66,7 @@ const StyledDiv = styled.div<{
 }>`
   ${({
     theme,
-    isAnimating,
+    shouldAnimate,
     animate,
     amount,
     delay,
@@ -83,13 +83,16 @@ const StyledDiv = styled.div<{
       ${delay ? `animation-delay: ${delay}s;` : ''}
       ${duration ? `animation-duration: ${duration}s;` : ''}
       ${timingFunction ? `animation-timing-function: ${timingFunction};` : ''}
+      animation-fill-mode: forwards;
     `
 
     switch (animate) {
       case 'slide-up-text':
-        return isAnimating
-          ? css`
-              animation-name: ${keyframes`
+        return css`
+          opacity: 0;
+          ${shouldAnimate &&
+          css`
+            animation-name: ${keyframes`
                   from {
                     opacity: 0;
                     transform: translateY(${amountInPixels});
@@ -98,64 +101,71 @@ const StyledDiv = styled.div<{
                     transform: translateY(0px);
                   }
                 `};
-              ${commonStyles}
-            `
-          : 'opacity: 0;'
-
+            ${commonStyles}
+          `}
+        `
       case 'slide-up-background-image':
-        return isAnimating
-          ? css`
-              & img {
-                animation-name: ${keyframes`
+        return css`
+          & img {
+            transform: translateY(30px);
+            ${shouldAnimate &&
+            css`
+              animation-name: ${keyframes`
                   from {
                     transform: translateY(30px);
                   } to {
                     transform: translateY(0px);
                   }
                 `};
-                ${commonStyles}
-              }
-            `
-          : `& img {transform: translateY(30px);}`
+              ${commonStyles}
+            `}
+          }
+        `
       case 'fade-in':
-        return isAnimating
-          ? css`
-              animation-name: ${keyframes`
+        return css`
+          opacity: 0;
+          ${shouldAnimate &&
+          css`
+            animation-name: ${keyframes`
                   from {
                     opacity: 0;
                   } to {
                     opacity: 1;
                   }
                 `};
-              ${commonStyles}
-            `
-          : 'opacity: 0;'
+            ${commonStyles}
+          `}
+        `
       case 'clip-y-image':
-        return isAnimating
-          ? css`
-              animation-name: ${keyframes`
+        return css`
+          clip-path: inset(${amountInPixels} 0);
+          ${shouldAnimate &&
+          css`
+            animation-name: ${keyframes`
                   from {
                     clip-path: inset(${amountInPixels} 0)
                   } to {
                     clip-path: inset(0 0)
                   }
                 `};
-              ${commonStyles}
-            `
-          : `clip-path: inset(${amountInPixels} 0);`
+            ${commonStyles}
+          `}
+        `
       case 'clip-up-image':
-        return isAnimating
-          ? css`
-              animation-name: ${keyframes`
+        return css`
+          clip-path: inset(${amountInPixels} 0 0 0);
+          ${shouldAnimate &&
+          css`
+            animation-name: ${keyframes`
                   from {
                     clip-path: inset(${amountInPixels} 0 0 0)
                   } to {
                     clip-path: inset(0 0)
                   }
                 `};
-              ${commonStyles}
-            `
-          : `clip-path: inset(${amountInPixels} 0 0 0);`
+            ${commonStyles}
+          `}
+        `
     }
   }};
 `

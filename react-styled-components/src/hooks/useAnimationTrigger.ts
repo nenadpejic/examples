@@ -8,7 +8,7 @@ const useAnimationTrigger = (
     threshold: 0.2,
   }
 ) => {
-  const [isAnimating, setIsAnimating] = useState(false)
+  const [shouldAnimate, setshouldAnimate] = useState(false)
 
   useEffect(() => {
     const hasIOSupport = !!window.IntersectionObserver
@@ -19,7 +19,7 @@ const useAnimationTrigger = (
     const intersectionObserver = new IntersectionObserver(
       ([entry], observer) => {
         if (entry.isIntersecting) {
-          setIsAnimating(true)
+          setshouldAnimate(true)
           observer.disconnect()
         }
       },
@@ -31,7 +31,7 @@ const useAnimationTrigger = (
     return () => intersectionObserver.disconnect()
   }, [elementRef, intersectionObserverInit])
 
-  return { isAnimating }
+  return { shouldAnimate }
 }
 
 export default useAnimationTrigger
