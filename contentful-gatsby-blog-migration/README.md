@@ -102,6 +102,8 @@ $ contentful space migration -e 'dev' migrations/01-add-category-field.js
 
 ## Migration examples
 
+[Contentful migration](https://github.com/contentful/contentful-migration/blob/master/README.md#reference-documentation)
+
 Add a new field to an existing content model
 
 ```bash
