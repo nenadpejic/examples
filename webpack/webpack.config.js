@@ -1,26 +1,28 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
-const isProduction = process.env.NODE_ENV == "production";
+const isProduction = process.env.NODE_ENV == 'production'
 
 module.exports = {
-  mode: isProduction ? "production" : "development",
+  mode: isProduction ? 'production' : 'development',
   entry: {
-    bundle: "./src/index.js",
+    bundle: './src/index.js',
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].[contenthash].js", // [name] takes the key of entry[name]. Default is main.
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js', // [name] takes the key of entry[name]. Default is main.
     clean: true, // Delete previous bundle
-    assetModuleFilename: "[name][ext]", // With [name][ext] the filenames for the assets will remain the same after bundling.
+    assetModuleFilename: 'assets/[name].[ext]', // With [name][ext] the filenames for the assets will remain the same after bundling.
   },
   // devtool: 'source-map', // Create a source-map for debugging.
   devServer: {
     static: {
-      directory: path.resolve(__dirname, "dist"),
+      directory: path.resolve(__dirname, 'dist'),
     },
+    watchFiles: ['./src/*'],
+    host: 'localhost',
     port: 3000,
     open: true,
     hot: true,
@@ -29,15 +31,15 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Webpack App",
-      filename: "index.html",
-      template: "src/index.html",
+      title: 'Webpack App',
+      filename: 'index.html',
+      template: 'src/index.html',
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "[name].css",
-      chunkFilename: "[id].css",
+      filename: '[name].css',
+      chunkFilename: '[id].css',
     }),
     // new BundleAnalyzerPlugin(),
   ],
@@ -46,7 +48,7 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif|woff|woff2|eot|ttf|otf)$/i,
         exclude: /node_modules/,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
       {
         test: /\.s[ac]ss$/i,
@@ -64,9 +66,9 @@ module.exports = {
 
         // [OPTION 2] Extracts CSS. Add plugin mini-css-extract-plugin.
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : "style-loader",
-          "css-loader",
-          "sass-loader",
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          'sass-loader',
         ],
 
         // [OPTION 3] Extracts CSS. Add entry: 'src/style/main.scss' and add a <link> to main.css in index.html.
@@ -80,15 +82,15 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         generator: {
-          filename: "script.js",
+          filename: 'script.js',
         },
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env"],
+            presets: ['@babel/preset-env'],
           },
         },
       },
     ],
   },
-};
+}
