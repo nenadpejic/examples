@@ -2,6 +2,10 @@
 
 Example of using Webpack.
 
+## Software dependencies
+
+- [Webpack](https://webpack.js.org/)
+
 ## Setup
 
 Initialize npm:
@@ -10,43 +14,199 @@ Initialize npm:
 $ npm init -y
 ```
 
-Install webpack:
+Install webpack dependencies:
 
 ```bash
 $ npm i -D webpack webpack-cli
 ```
 
-Install webpacks dev server:
+[Optional] Initialize webpack config by running:
+
+```bash
+$ npx webpack init
+# NOTE: This will require you to install `@webpack-cli/generators` but you can delete it after.
+```
+
+[Optional] Install webpack dev server:
 
 ```bash
 $ npm i -D webpack-dev-server
 ```
 
-Install plugins:
+[Optional] Install webpack bundle analyzer:
 
 ```bash
-# HTML template
-$ npm i -D html-webpack-plugin
-
-# CSS extractor
-$ npm i -D mini-css-extract-plugin
-
 # Bundle Analyzer
 $ npm i -D webpack-bundle-analyzer
 ```
 
-Install loaders:
+## HTML
 
-```bash
-# CSS
-$ npm i -D style-loader css-loader
+Use `html-webpack-plugin` in `webpack.config.js`:
 
-# SCSS
-$ npm i -D sass sass-loader
+```js
+module.exports = {
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Webpack App',
+      filename: 'index.html',
+      template: 'src/index.html',
+    }),
+  ],
+}
+```
 
-# JS
-$ npm i -D babel-loader @babel/preset-env
+Then create `src/index.html`.
 
+## CSS
+
+[Option] If you want to import CSS in JS:
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      test: /\.s[ac]ss$/i,
+      use: [
+        // Creates `style` nodes from JS strings
+        "style-loader",
+        // Translates CSS into CommonJS
+        "css-loader",
+        // Compiles Sass to CSS
+        "sass-loader",
+      ]
+    ]
+  }
+}
+```
+
+[Option] Or you can use `mini-css-extract-plugin`:
+
+```js
+module.exports = {
+  plugins: {
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
+  },
+  module: {
+    rules: [
+      test: /\.s[ac]ss$/i,
+      use: [
+        isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+        'css-loader',
+        'sass-loader',
+      ]
+    ]
+  }
+}
+```
+
+[Option] Or you can use `asset/resource`:
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      test: /\.s[ac]ss$/i,
+      type: "asset/resource",
+      generator: {
+        filename: "main.css",
+      },
+      use: [
+        'css-loader',
+        'sass-loader',
+      ]
+    ]
+  }
+}
+```
+
+## SCSS
+
+Use `sass` and `sass-loader`:
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      test: /\.s[ac]ss$/i,
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader',
+      ]
+    ]
+  }
+}
+```
+
+## PostCSS and TailwindCSS
+
+Use `postcss-loader` in `webpack.config.js`:
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+          },
+        ],
+      },
+    ],
+  },
+}
+```
+
+Then create postcss.config.js:
+
+```js
+module.exports = {
+  plugins: [require('autoprefixer'), require('postcss-nested')],
+}
+```
+
+## JS
+
+Use `babel-loader` and `@babel/preset-env`:
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        generator: {
+          filename: 'script.js',
+        },
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
+  },
+}
 ```
 
 ## Assets
