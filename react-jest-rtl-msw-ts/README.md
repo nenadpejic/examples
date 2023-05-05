@@ -11,6 +11,17 @@ Example of testing a React app with Jest, React Testing Library and Mock Service
 - react-testing-library
 - mock-service-worker
 
+## Dependencies
+
+- `jest` - Run script `jest --watch`.
+- `@types/jest` - Provides type definitions for `describe`, `beforeEach` etc.
+- `jest-environment-jsdom` - To be able to run in `jsdom` environment.
+- `@testing-library/react` - Exports methods `render`, `screen`.
+- `@testing-library/user-event` - Exports `userEvent`.
+- `ts-jest` - Enables parsing of jsx syntax. Add this to jest.config `transform: {"^.+\\.(ts|tsx|js|jsx)$": "ts-jest"}`
+- `jest-svg-transformer` - Enables parsing of svg. Add this to jest.config `transform: {'^.+\\.svg$': 'jest-svg-transformer'}`
+- `@testing-library/jest-dom` - Adds assertions like `toBeInTheDocument()`. Need to import `import "@testing-library/jest-dom/extend-expect";` to specific test file, or write it in `jest.setup.js` and configure `jest.config.js` to have `setupFilesAfterEnv: ["<rootDir>/jest.setup.js"]`.
+
 ## Setup
 
 - Initialize with create-react-app:
