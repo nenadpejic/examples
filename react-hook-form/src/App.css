@@ -1,0 +1,43 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+form label {
+  text-align: start;
+  margin-top: 1rem;
+}
+form label span.label-required-marker {
+  color: red;
+  margin-left: 0.25rem;
+}
+
+form input {
+  padding: 0.5rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+form input.input-error {
+  border-color: red;
+}
+
+form p.error {
+  text-align: start;
+  color: red;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+form button {
+  margin-top: 1rem;
+}
