@@ -6,6 +6,8 @@ Project was scaffolded with `create-vite` by running `$ yarn create vite@latest 
 
 ## Technologies
 
+- [Node](https://nodejs.org/en) - Runtime
+- [Yarn](https://yarnpkg.com/) - Package manager
 - [Vite](https://vitejs.dev/) - Bundler
 - [React](https://react.dev/) - Framework
 - [Typescript](https://www.typescriptlang.org/) - Static types
@@ -21,21 +23,22 @@ $ git clone git@github.com:nenadpejic/examples.git
 $ cd react-hook-form
 ```
 
-- Make sure to use the node version specified in `.nvmrc`. It's recommended to use `nvm` for node version management. [nvm doc](https://github.com/nvm-sh/nvm/blob/master/README.md)
+- Make sure to use the node version specified in `.nvmrc`. It's recommended to use `nvm` for node version management. [Official nvm docs](https://github.com/nvm-sh/nvm/blob/master/README.md)
 
 ```sh
 $ nvm use
 ```
 
-- Intall dependencies. Make sure to use the yarn version specified in `.yarnrc.yml` and `package.json.packageManager`. [yarn doc](https://yarnpkg.com/getting-started/install)
+- Intall dependencies. Make sure to use yarn from `corepack` with version specified in `.yarn/releases`, `.yarnrc.yml` and `package.json.packageManager`. [Official yarn docs](https://yarnpkg.com/getting-started/install)
 
 ```sh
-$ yarn
+$ corepack enable
+$ yarn install
 ```
 
-## Build and Testing
+## Development
 
-- Run the dev server
+- Run local dev server
 
 ```sh
 $ yarn dev
