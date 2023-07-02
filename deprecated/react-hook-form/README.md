@@ -23,7 +23,7 @@ $ git clone git@github.com:nenadpejic/examples.git
 $ cd react-hook-form
 ```
 
-- Make sure to use the node version specified in `.nvmrc`. It's recommended to use `nvm` for node version management. [Official nvm docs](https://github.com/nvm-sh/nvm/blob/master/README.md)
+- Make sure to use the node version specified in `.nvmrc`. It is recommended to use `nvm` for node version management. [Official nvm docs](https://github.com/nvm-sh/nvm/blob/master/README.md)
 
 ```sh
 $ nvm use
