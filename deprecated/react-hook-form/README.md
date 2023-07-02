@@ -1,8 +1,8 @@
 # react-hook-form
 
-Example app showcasing the `react-hook-form` package for handling forms.
+Example app showcasing [React Hook Form](https://react-hook-form.com/) for handling forms.
 
-Project was scaffolded with `create-vite` by running `$ yarn create vite@latest react-hook-form --template react-swc-ts`.
+This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite), by running `$ yarn create vite@latest react-hook-form --template react-swc-ts`.
 
 ## Technologies
 

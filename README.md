@@ -1,3 +1,3 @@
 # Examples
 
-A collection of examples using different technologies.
+A collection of examples showcasing the use of different technologies.
