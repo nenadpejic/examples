@@ -9,3 +9,8 @@ When creating a new example project, run the create script to initialize a READM
 ```sh
 $ npm run create <project-name>
 ```
+
+## Technologies
+
+- [commitlint](https://commitlint.js.org/) - Lint commit messages
+- [Husky](https://typicode.github.io/husky/) - Git hook helper
