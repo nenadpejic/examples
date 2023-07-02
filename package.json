@@ -2,8 +2,11 @@
   "name": "examples",
   "version": "1.0.0",
   "description": "A collection of examples showcasing the use of different technologies.",
-  "scripts": {},
+  "scripts": {
+    "create": "node create.js"
+  },
   "keywords": [],
   "author": "Nenad Pejic",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }
