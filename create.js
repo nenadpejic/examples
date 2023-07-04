@@ -32,7 +32,7 @@ This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/
 
 \`\`\`sh
 $ git clone git@github.com:nenadpejic/examples.git
-$ cd react
+$ cd ${targetDir}
 \`\`\`
 
 - Make sure to use the node version specified in \`.nvmrc\`. It is recommended to use \`nvm\` for node version management. [Official nvm docs](https://github.com/nvm-sh/nvm/blob/master/README.md)
