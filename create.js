@@ -7,7 +7,7 @@ if (!targetDir) throw new Error("You need to speciffy the target directory");
 
 const readmeContent = `# ${targetDir}
   
-Example app showcasing [React](https://react.dev/) for building front-end apps.
+Example project showcasing [React](https://react.dev/) for building front-end apps.
 
 This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite), by running \`$ yarn create vite@latest react --template react-swc-ts\`.
 
@@ -15,12 +15,16 @@ This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/
 
 - [Git](https://git-scm.com/) - Version control system
 - [Node](https://nodejs.org/en) - Runtime
+- [NPM](https://www.npmjs.com/) - Package manager
 - [Yarn](https://yarnpkg.com/) - Package manager
+- [Husky](https://typicode.github.io/husky/) - Git hook helper
+- [commitlint](https://commitlint.js.org/) - Lint commit messages
+- [lint-staged](https://github.com/okonet/lint-staged/) - Run linters and formatters against staged git files
+- [ESLint](https://eslint.org/) - Linter
+- [Prettier](https://prettier.io/) - Formatter
 - [Vite](https://vitejs.dev/) - Bundler
 - [React](https://react.dev/) - Framework
 - [Typescript](https://www.typescriptlang.org/) - Static types
-- [ESLint](https://eslint.org/) - Linter
-- [Prettier](https://prettier.io/) - Formatter
 
 ## Installation
 
@@ -68,14 +72,20 @@ $ yarn run build
 $ git checkout -b feat/<feature-name>
 \`\`\`
 
-- Commit messages need to follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+- Commit messages need to follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 \`\`\`sh
 $ git add .
 $ git commit -m '<type>[optional scope]: <description>'
 \`\`\`
 
-- Open a pull request and merge once approved.
+- Open a pull request and once approved merge by squashing commits
+
+- Optional: Rebase beforehand
+
+\`\`\`sh
+$ git rebase master HEAD~<number-of-commits> -i
+\`\`\`
 
 ## Guide
 

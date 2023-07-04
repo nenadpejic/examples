@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A collection of examples showcasing the use of different technologies.",
   "scripts": {
-    "create": "node create.js"
+    "create": "node create.js",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "Nenad Pejic",
