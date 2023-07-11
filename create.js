@@ -41,7 +41,7 @@ $ cd ${targetDir}
 $ nvm use
 \`\`\`
 
-- Intall dependencies. This project uses yarn so make sure to use the version specified in \`package.json\` under \`packageManager\`. It is recomended to use corepack. [Official yarn docs](https://yarnpkg.com/getting-started/install)
+- Intall dependencies. This project uses \`yarn\` so make sure to use the version specified in \`package.json\` under \`packageManager\`. It is recomended to use \`corepack\`. [Official yarn docs](https://yarnpkg.com/getting-started/install)
 
 \`\`\`sh
 $ corepack enable
