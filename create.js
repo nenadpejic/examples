@@ -11,6 +11,8 @@ Example project showcasing [React](https://react.dev/) for building front-end ap
 
 This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite), by running \`$ yarn create vite@latest react --template react-swc-ts\`.
 
+This project was bootstrapped with [Create Next App](https://nextjs.org/docs/pages/api-reference/create-next-app), by running \`$ npx create-next-app\`.
+
 ## Technologies
 
 - [Git](https://git-scm.com/) - Version control system
@@ -24,6 +26,7 @@ This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/
 - [Prettier](https://prettier.io/) - Formatter
 - [Vite](https://vitejs.dev/) - Bundler
 - [React](https://react.dev/) - Framework
+- [Next](https://nextjs.org/) - Framework
 - [Typescript](https://www.typescriptlang.org/) - Static types
 
 ## Installation
@@ -43,9 +46,13 @@ $ nvm use
 
 - Intall dependencies. This project uses \`yarn\` so make sure to use the version specified in \`package.json\` under \`packageManager\`. It is recomended to use \`corepack\`. [Official yarn docs](https://yarnpkg.com/getting-started/install)
 
+- Intall dependencies. This project uses \`npm\`. [Official npm docs](https://www.npmjs.com/)
+
 \`\`\`sh
 $ corepack enable
 $ yarn install
+# or
+$ npm install
 \`\`\`
 
 ## Development
@@ -54,6 +61,8 @@ $ yarn install
 
 \`\`\`sh
 $ yarn dev
+# or
+$ npm run dev
 \`\`\`
 
 ## Build and Test
@@ -62,6 +71,8 @@ $ yarn dev
 
 \`\`\`sh
 $ yarn run build
+# or
+$ npm run build
 \`\`\`
 
 ## Contributing
