@@ -194,6 +194,15 @@ $ echo -e '# See https://eslint.org/docs/latest/use/configure/ignore/ for more a
 # eslint-plugin-react@latest
 ```
 
+```json
+// package.json
+{
+  "scripts": {
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+  }
+}
+```
+
 ### Prettier
 
 Install [Official docs](https://prettier.io/docs/en/install.html)
@@ -219,6 +228,26 @@ $ npm install --save-dev eslint-config-prettier
 // .eslintrc.*
 {
   "extends": ["some-other-config-you-use", "prettier"]
+}
+```
+
+```json
+// package.sjon
+{
+  "scripts": {
+    "format": "prettier --write"
+  }
+}
+```
+
+### Typescript
+
+```json
+// package.sjon
+{
+  "scripts": {
+    "check": "tsc"
+  }
 }
 ```
 
