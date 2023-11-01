@@ -18,6 +18,8 @@ When creating a new example project, run the create script to initialize a READM
 $ npm run create <project-name>
 ```
 
+## Build and Test
+
 ## Contributing
 
 - Create a new feature branch
@@ -40,3 +42,5 @@ $ git commit -m '<type>[optional scope]: <description>'
 ```sh
 $ git rebase master HEAD~<number-of-commits> -i
 ```
+
+## Deployment

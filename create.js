@@ -99,6 +99,8 @@ $ git commit -m '<type>[optional scope]: <description>'
 $ git rebase master HEAD~<number-of-commits> -i
 \`\`\`
 
+## Deployment
+
 ## Guide
 
 `;

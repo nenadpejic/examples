@@ -61,6 +61,8 @@ $ git commit -m '<type>[optional scope]: <description>'
 $ git rebase master HEAD~<number-of-commits> -i
 ```
 
+## Deployment
+
 ## Guide
 
 Different types of hooks. [Official Git Hooks docs](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
