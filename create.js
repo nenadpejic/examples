@@ -28,6 +28,7 @@ This project was bootstrapped with [Create Next App](https://nextjs.org/docs/pag
 - [React](https://react.dev/) - Framework
 - [Next](https://nextjs.org/) - Framework
 - [Typescript](https://www.typescriptlang.org/) - Static types
+- [React Router Dom](https://reactrouter.com/) - Routing
 
 ## Installation
 
