@@ -24,11 +24,12 @@ This project was bootstrapped with [Create Next App](https://nextjs.org/docs/pag
 - [lint-staged](https://github.com/okonet/lint-staged/) - Run linters and formatters against staged git files
 - [ESLint](https://eslint.org/) - Linter
 - [Prettier](https://prettier.io/) - Formatter
+- [Typescript](https://www.typescriptlang.org/) - Static types
 - [Vite](https://vitejs.dev/) - Bundler
 - [React](https://react.dev/) - Framework
 - [Next](https://nextjs.org/) - Framework
-- [Typescript](https://www.typescriptlang.org/) - Static types
 - [React Router Dom](https://reactrouter.com/) - Routing
+- [Tailwindcss](https://tailwindcss.com/) - Styling
 
 ## Installation
 
