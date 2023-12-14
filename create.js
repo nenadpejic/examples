@@ -9,9 +9,10 @@ const readmeContent = `# ${targetDir}
   
 Example project showcasing [React](https://react.dev/) for building front-end apps.
 
-This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite), by running \`$ yarn create vite@latest react --template react-swc-ts\`.
+<!-- Vite or Next -->
+<!-- This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite), by running \`$ yarn create vite@latest react --template react-swc-ts\`. -->
 
-This project was bootstrapped with [Create Next App](https://nextjs.org/docs/pages/api-reference/create-next-app), by running \`$ npx create-next-app\`.
+<!-- This project was bootstrapped with [Create Next App](https://nextjs.org/docs/pages/api-reference/create-next-app), by running \`$ npx create-next-app\`. -->
 
 ## Technologies
 
@@ -30,6 +31,7 @@ This project was bootstrapped with [Create Next App](https://nextjs.org/docs/pag
 - [Next](https://nextjs.org/) - Framework
 - [React Router Dom](https://reactrouter.com/) - Routing
 - [Tailwindcss](https://tailwindcss.com/) - Styling
+- [RadixUI](https://www.radix-ui.com/) - UI
 
 ## Installation
 
@@ -46,10 +48,10 @@ $ cd ${targetDir}
 $ nvm use
 \`\`\`
 
-<!-- Yarn or NPM
-- Intall dependencies. This project uses \`yarn\` so make sure to use the version specified in \`package.json\` under \`packageManager\`. It is recomended to use \`corepack\`. [Official yarn docs](https://yarnpkg.com/getting-started/install)
+<!-- Yarn or NPM -->
+<!-- - Intall dependencies. This project uses \`yarn\` so make sure to use the version specified in \`package.json\` under \`packageManager\`. It is recomended to use \`corepack\`. [Official yarn docs](https://yarnpkg.com/getting-started/install) -->
 
-- Intall dependencies. This project uses \`npm\`. [Official npm docs](https://www.npmjs.com/) -->
+<!-- - Intall dependencies. This project uses \`npm\`. [Official npm docs](https://www.npmjs.com/) -->
 
 \`\`\`sh
 $ corepack enable
