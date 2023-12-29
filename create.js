@@ -32,6 +32,8 @@ Example project showcasing [React](https://react.dev/) for building front-end ap
 - [React Router Dom](https://reactrouter.com/) - Routing
 - [Tailwindcss](https://tailwindcss.com/) - Styling
 - [RadixUI](https://www.radix-ui.com/) - UI
+- [ShadcnUI](https://ui.shadcn.com/) - UI
+- [Next Themes](https://github.com/pacocoursey/next-themes) - Theme switching
 
 ## Installation
 
