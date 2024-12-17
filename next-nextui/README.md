@@ -79,3 +79,7 @@ $ git rebase master HEAD~<number-of-commits> -i
 ## Deployment
 
 ## Guide
+
+Globall installation with `@nextui-org/react` for both `nextui` and `NextUIProvider`. Each component gets installed from the same package.
+
+Individual installation with `@nextui-org/theme` for `nextui`, and `@nextui-org/system` for `NextUIProvider`. Each component is installed from a separate package.

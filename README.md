@@ -22,22 +22,22 @@ $ npm run create <project-name>
 
 ## Contributing
 
-- Create a new feature branch
+1. Create a new feature branch
 
 ```sh
 $ git checkout -b feat/<feature-name>
 ```
 
-- Commit messages need to follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+2. Commit messages need to follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ```sh
 $ git add .
 $ git commit -m '<type>[optional scope]: <description>'
 ```
 
-- Open a pull request and once approved merge by squashing commits
+3. Open a pull request and once approved merge by squashing commits
 
-- Optional: Rebase beforehand
+Optional: Rebase beforehand
 
 ```sh
 $ git rebase master HEAD~<number-of-commits> -i

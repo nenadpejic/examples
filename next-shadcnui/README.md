@@ -15,7 +15,13 @@ This project was bootstrapped with [Create Next App](https://nextjs.org/docs/pag
 - [Next](https://nextjs.org/) - Framework
 - [Tailwindcss](https://tailwindcss.com/) - Styling
 - [ShadcnUI](https://ui.shadcn.com/) - UI
-<!-- - [Next Themes](https://github.com/pacocoursey/next-themes) - Theme switching -->
+  - [Lucide](https://lucide.dev/) - Icons
+  - [CVA](https://cva.style/docs) - Variants type safety
+  - [clsx](https://github.com/lukeed/clsx#readme) - constructing className strings conditionally
+  - [tailwind-merge](https://github.com/dcastil/tailwind-merge) - merge className strings
+  - [tailwindcss-animate](https://www.npmjs.com/package/tailwindcss-animate) - animation className strings
+  - [Next Themes](https://github.com/pacocoursey/next-themes) - Theme switching
+  - [TW Colors](https://github.com/L-Blondy/tw-colors) - Theme creation
 
 ## Installation
 
@@ -105,15 +111,15 @@ Are you using React Server Components? › no / yes
 
 ```tsx
 // layout.tsx
-import "@/styles/globals.css";
-import { Inter as FontSans } from "next/font/google";
+import '@/styles/globals.css'
+import { Inter as FontSans } from 'next/font/google'
 
-import { cn } from "../@/lib/utils";
+import { cn } from '../@/lib/utils'
 
 export const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+  subsets: ['latin'],
+  variable: '--font-sans',
+})
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
@@ -121,31 +127,121 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          'min-h-screen bg-background font-sans antialiased',
+          fontSans.variable,
         )}
       >
         ...
       </body>
     </html>
-  );
+  )
 }
 ```
 
 ```js
 // tailwind.config.js
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const { fontFamily } = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
-  content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+  darkMode: ['class'],
+  content: ['app/**/*.{ts,tsx}', 'components/**/*.{ts,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ['var(--font-sans)', ...fontFamily.sans],
       },
     },
   },
-};
+}
+```
+
+4. Theme switching
+
+```sh
+npm i next-themes
+```
+
+```tsx
+// src/components/ThemeProvider.tsx
+'use client'
+
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { type ThemeProviderProps } from 'next-themes/dist/types'
+
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+}
+```
+
+```tsx
+// src/components/ModeToggle.tsx
+'use client'
+
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
+
+export function ModeToggle() {
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
+  return (
+    <div>
+      <p>The current theme is: {theme}</p>
+      <button className="block" onClick={() => setTheme('system')}>
+        System
+      </button>
+      <button className="block" onClick={() => setTheme('light')}>
+        Light Mode
+      </button>
+      <button className="block" onClick={() => setTheme('dark')}>
+        Dark Mode
+      </button>
+    </div>
+  )
+}
+```
+
+5. Theme creation
+
+```sh
+npm i tw-colors
+```
+
+```ts
+const { createThemes } = require('tw-colors')
+
+module.exports = {
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  plugins: [
+    createThemes({
+      light: {
+        primary: {
+          DEFAULT: 'hsl(220.9 39.3% 11%)',
+          foreground: 'hsl(210 20% 98%)',
+        },
+      },
+      dark: {
+        primary: {
+          DEFAULT: 'hsl(210 20% 98%)',
+          foreground: 'hsl(220.9 39.3% 11%)',
+        },
+      },
+    }),
+  ],
+}
+```
+
+6. Add component via cli or manually
+
+```sh
+npx shadcn-ui@latest add button
 ```
