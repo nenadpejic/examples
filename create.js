@@ -1,17 +1,21 @@
-import { join } from "node:path";
 import fs from "node:fs";
+import { join } from "node:path";
 
 const targetDir = process.argv[2];
 
 if (!targetDir) throw new Error("You need to speciffy the target directory");
 
-const readmeContent = `# ${targetDir}
-  
+const projectName = targetDir.startsWith("./")
+  ? targetDir.substring(2)
+  : targetDir;
+
+const readmeContent = `# ${projectName}
+
 Example project showcasing [React](https://react.dev/) for building front-end apps.
 
 <!-- Vite | Next -->
-<!-- This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite), by running \`$ npm create vite@latest\`. -->
-<!-- This project was bootstrapped with [Create Next App](https://nextjs.org/docs/pages/api-reference/create-next-app), by running \`$ npx create-next-app\`. -->
+<!-- This project was bootstrapped with [Create Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite). -->
+<!-- This project was bootstrapped with [Create Next App](https://nextjs.org/docs/pages/api-reference/create-next-app). -->
 
 ## Technologies
 
@@ -38,7 +42,7 @@ Example project showcasing [React](https://react.dev/) for building front-end ap
 - [Formik](https://formik.org/) - Form handling
 - [Yup](https://github.com/jquense/yup) - Validation
 - [Zod](https://zod.dev/) - Validation
-- [React Query](https://tanstack.com/query/latest) - Async state management
+- [Tanstack Query](https://tanstack.com/query/latest) - Async state management
 
 ## Installation
 
@@ -46,7 +50,7 @@ Clone repo and cd into project
 
 \`\`\`sh
 $ git clone git@github.com:nenadpejic/examples.git
-$ cd ${targetDir}
+$ cd ./${projectName}
 \`\`\`
 
 Make sure to use the node version specified in \`.nvmrc\`. It is recommended to use \`nvm\` for node version management. [Official nvm docs](https://github.com/nvm-sh/nvm/blob/master/README.md)
@@ -66,7 +70,6 @@ $ yarn install
 # or
 $ npm install
 # or
-$ corepack enable pnpm
 $ pnpm install
 \`\`\`
 
@@ -120,7 +123,6 @@ $ git rebase master HEAD~<number-of-commits> -i
 ## Deployment
 
 ## Guide
-
 `;
 
 const absolutePathToReadme = join(process.cwd(), targetDir, "README.md");
