@@ -6,16 +6,17 @@ A collection of example projects showcasing the use of different technologies.
 
 - [Git](https://git-scm.com/) - Version control system
 - [Node](https://nodejs.org/en) - Runtime
-- [NPM](https://www.npmjs.com/) - Package manager
+- [PNPM](https://pnpm.io/) - Package manager
 - [Husky](https://typicode.github.io/husky/) - Git hook helper
 - [commitlint](https://commitlint.js.org/) - Lint commit messages
+- [Biome](https://biomejs.dev/) - Formatter and Linter
 
 ## Development
 
 When creating a new example project, run the create script to initialize a README.md template.
 
 ```sh
-$ npm run create <project-name>
+$ pnpm run create <project-name>
 ```
 
 ## Build and Test

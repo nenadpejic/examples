@@ -6,8 +6,8 @@ const targetDir = process.argv[2];
 if (!targetDir) throw new Error("You need to speciffy the target directory");
 
 const projectName = targetDir.startsWith("./")
-  ? targetDir.substring(2)
-  : targetDir;
+	? targetDir.substring(2)
+	: targetDir;
 
 const readmeContent = `# ${projectName}
 
@@ -29,6 +29,7 @@ Example project showcasing [React](https://react.dev/) for building front-end ap
 - [lint-staged](https://github.com/okonet/lint-staged/) - Run linters and formatters against staged git files
 - [ESLint](https://eslint.org/) - Linter
 - [Prettier](https://prettier.io/) - Formatter
+- [Biome](https://biomejs.dev/) - Formatter and Linter
 - [Typescript](https://www.typescriptlang.org/) - Static types
 - [Vite](https://vitejs.dev/) - Bundler
 - [React](https://react.dev/) - Framework
@@ -43,6 +44,7 @@ Example project showcasing [React](https://react.dev/) for building front-end ap
 - [Yup](https://github.com/jquense/yup) - Validation
 - [Zod](https://zod.dev/) - Validation
 - [Tanstack Query](https://tanstack.com/query/latest) - Async state management
+- [React JSON Schema Form](https://rjsf-team.github.io/react-jsonschema-form/docs/) - JSON based form component
 
 ## Installation
 
@@ -128,15 +130,15 @@ $ git rebase master HEAD~<number-of-commits> -i
 const absolutePathToReadme = join(process.cwd(), targetDir, "README.md");
 
 const writeReadme = () => {
-  try {
-    if (!fs.existsSync(targetDir)) {
-      fs.mkdirSync(targetDir);
-    }
-    fs.writeFileSync(absolutePathToReadme, readmeContent);
-    console.log("✔️ Readme template created");
-  } catch (err) {
-    console.error(err);
-  }
+	try {
+		if (!fs.existsSync(targetDir)) {
+			fs.mkdirSync(targetDir);
+		}
+		fs.writeFileSync(absolutePathToReadme, readmeContent);
+		console.log("✔️ Readme template created");
+	} catch (err) {
+		console.error(err);
+	}
 };
 
 writeReadme();
