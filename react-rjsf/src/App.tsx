@@ -1,8 +1,14 @@
 // import "./App.css";
 import { Form } from "@rjsf/mui";
-import type { RJSFSchema, UiSchema, WidgetProps } from "@rjsf/utils";
+import type {
+	RJSFSchema,
+	StrictRJSFSchema,
+	UiSchema,
+	WidgetProps,
+} from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
-import { type ChangeEvent, useState } from "react";
+import { merge } from "lodash";
+import { type ChangeEvent, useMemo, useState } from "react";
 import z from "zod";
 
 const schema: RJSFSchema = {
@@ -76,6 +82,17 @@ const schema: RJSFSchema = {
 				enum: ["a", "b", "c"],
 			},
 		},
+		nestedObject: {
+			type: "object",
+			properties: {
+				hiddenStringField: {
+					type: "string",
+					meta: {
+						hidden: true,
+					},
+				},
+			},
+		},
 	},
 };
 
@@ -94,21 +111,21 @@ const uiSchema: UiSchema = {
 	// 	"ui:widget": "checkboxes", // If the field is multiple-choice renders as checkboxes
 	// },
 	customMultiSelect: {
-		"ui:widget": "CustomMultiSelect",
+		"ui:widget": "CustomMultiSelectWidget",
 	},
 };
 
 const CustomMultiSelectSchema = z.object({
+	title: z.string().optional(),
+	type: z.literal("array"),
 	items: z.object({
 		enum: z.array(z.string()),
 		type: z.string(),
 	}),
-	title: z.string(),
-	type: z.literal("array"),
 });
 
-const CustomMultiSelect = (props: WidgetProps) => {
-	const { schema, onChange, value, label, id } = props;
+const CustomMultiSelectWidget = (props: WidgetProps) => {
+	const { schema, onChange, value, label, id, name } = props;
 	const parsedSchema = CustomMultiSelectSchema.safeParse(schema);
 
 	if (!parsedSchema.success) {
@@ -132,7 +149,7 @@ const CustomMultiSelect = (props: WidgetProps) => {
 	return (
 		<div>
 			<label style={{ display: "block" }} htmlFor={id}>
-				{label}
+				{label || name}
 			</label>
 			<select
 				style={{ width: "100%" }}
@@ -152,7 +169,7 @@ const CustomMultiSelect = (props: WidgetProps) => {
 };
 
 const widgets = {
-	CustomMultiSelect,
+	CustomMultiSelectWidget,
 };
 
 // NOTE: defaultFormData overrides default values set in schema
@@ -161,14 +178,59 @@ const defaultFormData = {
 	done: true,
 };
 
+type MatcherFn = (schema: StrictRJSFSchema, key?: string) => UiSchema | null;
+
+const walkSchema = (
+	schema: StrictRJSFSchema,
+	matcherFn: MatcherFn,
+	currentKey?: string,
+): UiSchema => {
+	const result: UiSchema = {};
+
+	const match = matcherFn(schema, currentKey);
+	if (match !== null) {
+		return match;
+	}
+
+	// If schema has properties, recurse into them
+	if (schema.properties && typeof schema.properties === "object") {
+		for (const [key, value] of Object.entries(schema.properties)) {
+			const childResult = walkSchema(
+				value as StrictRJSFSchema,
+				matcherFn,
+				`${currentKey || "root"}.${key}`,
+			);
+			if (childResult && Object.keys(childResult).length > 0) {
+				result[key] = childResult;
+			}
+		}
+	}
+
+	return result;
+};
+
 function App() {
 	const [formData, setFormData] = useState(defaultFormData || null);
+
+	const builtUiSchema = useMemo(() => {
+		const matcherFn: MatcherFn = (schema, _key) => {
+			if (schema.meta?.hidden === true) {
+				return { "ui:widget": "hidden" };
+			}
+
+			return null;
+		};
+		const built = walkSchema(schema, matcherFn);
+		const merged = merge({}, uiSchema, built);
+
+		return merged;
+	}, []);
 
 	return (
 		<Form
 			schema={schema}
 			validator={validator}
-			uiSchema={uiSchema}
+			uiSchema={builtUiSchema}
 			formData={formData}
 			widgets={widgets}
 			// By default Form is uncontrolled, assign formData and onChange to make it controlled
@@ -179,6 +241,7 @@ function App() {
 			onSubmit={(e) => console.log("submitted", e.formData)}
 			onError={(errors) => console.log("errors", errors)}
 			noHtml5Validate // This disables the "Please fill out this field." html validation
+			idSeparator="."
 		/>
 	);
 }
