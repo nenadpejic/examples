@@ -12,21 +12,23 @@ import { type ChangeEvent, useMemo, useState } from "react";
 import z from "zod";
 
 const schema: RJSFSchema = {
-	title: "Root Title",
+	title: "Root Schema Title",
 	type: "object",
-	// required: ["stringField"],
+	// required: ["string_field"],
 	properties: {
-		stringField: {
+		string_field: {
 			type: "string",
-			// title: "Title",
-			// description: "Your title goes here",
-			// default: "A new task",
+			// title: "String Field",
+			// description: "This is a string field",
+			// default: "default value",
+			const: "const value",
+			readOnly: true,
 		},
-		numberField: { type: "number" },
-		integerField: { type: "integer" },
-		booleanField: { type: "boolean" },
-		nullField: { type: "null" },
-		arrayField: {
+		number_field: { type: "number" },
+		integer_field: { type: "integer" },
+		boolean_field: { type: "boolean" },
+		null_field: { type: "null" },
+		array_field: {
 			type: "array",
 			// To transform into multiple-choice list, set uniqueItems: true and provide items.enum: []
 			// uniqueItems: true,
@@ -39,11 +41,11 @@ const schema: RJSFSchema = {
 				enum: ["a", "b"],
 			},
 		},
-		numberWithEnumField: {
+		number_with_enum_field: {
 			type: "number",
 			enum: [1, 2],
 		},
-		numberWithAnyOfField: {
+		number_with_any_of_field: {
 			type: "number",
 			anyOf: [
 				{
@@ -63,7 +65,7 @@ const schema: RJSFSchema = {
 				},
 			],
 		},
-		numberWithOneOfField: {
+		number_with_one_of_field: {
 			type: "number",
 			oneOf: [
 				{ const: 1, title: "one" },
@@ -71,21 +73,21 @@ const schema: RJSFSchema = {
 				{ const: 3, title: "three" },
 			],
 		},
-		multiType: {
+		multi_type_field: {
 			type: ["string", "null"],
 		},
-		customMultiSelect: {
+		custom_multi_select: {
 			type: "array",
-			title: "Custom Multi-Select",
 			items: {
 				type: "string",
 				enum: ["a", "b", "c"],
 			},
+			// default: ["b"],
 		},
-		nestedObject: {
+		nested_object: {
 			type: "object",
 			properties: {
-				hiddenStringField: {
+				hidden_string_field: {
 					type: "string",
 					meta: {
 						hidden: true,
@@ -97,11 +99,23 @@ const schema: RJSFSchema = {
 };
 
 const uiSchema: UiSchema = {
-	numberWithEnumField: {
+	string_field: {
+		"ui:title": "String Field",
+		"ui:help": "Hint: Make it strong!",
+		"ui:autofocus": true,
+		"ui:emptyValue": "",
+		"ui:placeholder":
+			"ui:emptyValue causes this field to always be valid despite being required",
+		"ui:autocomplete": "family-name",
+		"ui:enableMarkdownInDescription": true,
+		"ui:description":
+			"Make text **bold** or *italic*. Take a look at other options [here](https://markdown-to-jsx.quantizor.dev/).",
+	},
+	number_with_enum_field: {
 		"ui:enumNames": ["option a", "option b"], // Give labels to render for the enum values
 		"ui:enumDisabled": [1], // Disable an enum
 	},
-	// arrayField: {
+	// array_field: {
 	// 	"ui:options": {
 	// 		orderable: false,
 	// 		addable: false,
@@ -110,7 +124,7 @@ const uiSchema: UiSchema = {
 	// 	},
 	// 	"ui:widget": "checkboxes", // If the field is multiple-choice renders as checkboxes
 	// },
-	customMultiSelect: {
+	custom_multi_select: {
 		"ui:widget": "CustomMultiSelectWidget",
 	},
 };
@@ -173,10 +187,7 @@ const widgets = {
 };
 
 // NOTE: defaultFormData overrides default values set in schema
-const defaultFormData = {
-	title: "First task",
-	done: true,
-};
+const defaultFormData = {};
 
 type MatcherFn = (schema: StrictRJSFSchema, key?: string) => UiSchema | null;
 
