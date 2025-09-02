@@ -41,10 +41,13 @@ Example project showcasing [React](https://react.dev/) for building front-end ap
 - [Next Themes](https://github.com/pacocoursey/next-themes) - Theme switching
 - [React Hook Form](https://react-hook-form.com/) - Form handling
 - [Formik](https://formik.org/) - Form handling
+- [React JSON Schema Form](https://rjsf-team.github.io/react-jsonschema-form/docs/) - JSON based form component
 - [Yup](https://github.com/jquense/yup) - Validation
 - [Zod](https://zod.dev/) - Validation
 - [Tanstack Query](https://tanstack.com/query/latest) - Async state management
-- [React JSON Schema Form](https://rjsf-team.github.io/react-jsonschema-form/docs/) - JSON based form component
+- [Vitest](https://vitest.dev/) - Test runner
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) - Testing utility
+- [Mock Service Worker](https://mswjs.io/) - Mock network requests
 
 ## Installation
 
