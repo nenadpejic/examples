@@ -1,7 +1,7 @@
 // import "./App.css";
-import { Form } from "@rjsf/mui";
+import { Form, Templates } from "@rjsf/mui";
 import type {
-	RJSFSchema,
+	ObjectFieldTemplateProps,
 	StrictRJSFSchema,
 	UiSchema,
 	WidgetProps,
@@ -11,8 +11,8 @@ import { merge } from "lodash";
 import { type ChangeEvent, useMemo, useState } from "react";
 import z from "zod";
 
-const schema: RJSFSchema = {
-	title: "Root Schema Title",
+const schema: StrictRJSFSchema = {
+	title: "Root Schema",
 	type: "object",
 	// required: ["string_field"],
 	properties: {
@@ -84,13 +84,23 @@ const schema: RJSFSchema = {
 			},
 			// default: ["b"],
 		},
-		nested_object: {
+		object_field: {
 			type: "object",
 			properties: {
 				hidden_string_field: {
 					type: "string",
 					meta: {
 						hidden: true,
+					},
+				},
+				nested_object_field: {
+					properties: {
+						nested_string_field: { type: "string" },
+						double_nested_object_field: {
+							properties: {
+								nested_string_field: { type: "string" },
+							},
+						},
 					},
 				},
 			},
@@ -125,22 +135,22 @@ const uiSchema: UiSchema = {
 	// 	"ui:widget": "checkboxes", // If the field is multiple-choice renders as checkboxes
 	// },
 	custom_multi_select: {
-		"ui:widget": "CustomMultiSelectWidget",
+		"ui:widget": "MyMultiSelectWidget",
 	},
 };
 
-const CustomMultiSelectSchema = z.object({
+const MyMultiSelectSchema = z.object({
 	title: z.string().optional(),
 	type: z.literal("array"),
 	items: z.object({
-		enum: z.array(z.string()),
 		type: z.string(),
+		enum: z.array(z.string()),
 	}),
 });
 
-const CustomMultiSelectWidget = (props: WidgetProps) => {
+const MyMultiSelectWidget = (props: WidgetProps) => {
 	const { schema, onChange, value, label, id, name } = props;
-	const parsedSchema = CustomMultiSelectSchema.safeParse(schema);
+	const parsedSchema = MyMultiSelectSchema.safeParse(schema);
 
 	if (!parsedSchema.success) {
 		return (
@@ -183,7 +193,35 @@ const CustomMultiSelectWidget = (props: WidgetProps) => {
 };
 
 const widgets = {
-	CustomMultiSelectWidget,
+	MyMultiSelectWidget,
+};
+
+const { ObjectFieldTemplate } = Templates;
+
+const MyObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
+	if (!ObjectFieldTemplate) return null;
+
+	const { idSchema } = props;
+
+	if (idSchema.$id.split(".").length < 3) {
+		return <ObjectFieldTemplate {...props} />;
+	}
+
+	return (
+		<div
+			style={{
+				margin: 0,
+				paddingLeft: "2rem",
+				borderLeft: "1px solid lightgray",
+			}}
+		>
+			<ObjectFieldTemplate {...props} />
+		</div>
+	);
+};
+
+const templates = {
+	ObjectFieldTemplate: MyObjectFieldTemplate,
 };
 
 // NOTE: defaultFormData overrides default values set in schema
@@ -242,8 +280,9 @@ function App() {
 			schema={schema}
 			validator={validator}
 			uiSchema={builtUiSchema}
-			formData={formData}
 			widgets={widgets}
+			templates={templates}
+			formData={formData}
 			// By default Form is uncontrolled, assign formData and onChange to make it controlled
 			onChange={(e) => {
 				console.log("changed", e.formData);
