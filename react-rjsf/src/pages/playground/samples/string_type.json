@@ -1,0 +1,56 @@
+{
+	"jsonSchema": {
+		"type": "object",
+		"required": ["required_string_field"],
+		"properties": {
+			"string_field": {
+				"type": "string"
+			},
+			"date-time_string_field": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"date_string_field": {
+				"type": "string",
+				"format": "date"
+			},
+			"time_string_field": {
+				"type": "string",
+				"format": "time"
+			},
+			"description_string_field": {
+				"type": "string",
+				"description": "This is a description."
+			},
+			"required_string_field": {
+				"type": "string"
+			},
+			"default_string_field": {
+				"type": "string",
+				"default": "This is a default value"
+			},
+			"const_string_field": {
+				"type": "string",
+				"const": "This is a const value"
+			},
+			"placeholder_string_field": {
+				"type": "string"
+			},
+			"readonly_string_field": {
+				"type": "string",
+				"readOnly": true
+			},
+			"disabled_string_field": {
+				"type": "string"
+			}
+		}
+	},
+	"uiSchema": {
+		"placeholder_string_field": {
+			"ui:placeholder": "This is a placeholder"
+		},
+		"disabled_string_field": {
+			"ui:disabled": true
+		}
+	}
+}

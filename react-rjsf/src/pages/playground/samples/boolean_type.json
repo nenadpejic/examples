@@ -1,0 +1,38 @@
+{
+	"jsonSchema": {
+		"type": "object",
+		"required": ["required_boolean_field"],
+		"properties": {
+			"boolean_field": {
+				"type": "boolean"
+			},
+			"description_boolean_field": {
+				"type": "boolean",
+				"description": "This is a description."
+			},
+			"required_boolean_field": {
+				"type": "boolean"
+			},
+			"default_boolean_field": {
+				"type": "boolean",
+				"default": true
+			},
+			"const_boolean_field": {
+				"type": "boolean",
+				"const": true
+			},
+			"readonly_boolean_field": {
+				"type": "boolean",
+				"readOnly": true
+			},
+			"disabled_boolean_field": {
+				"type": "boolean"
+			}
+		}
+	},
+	"uiSchema": {
+		"disabled_boolean_field": {
+			"ui:disabled": true
+		}
+	}
+}

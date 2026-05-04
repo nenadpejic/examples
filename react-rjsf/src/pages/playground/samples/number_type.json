@@ -1,0 +1,44 @@
+{
+	"jsonSchema": {
+		"type": "object",
+		"required": ["required_number_field"],
+		"properties": {
+			"number_field": {
+				"type": "number"
+			},
+			"description_number_field": {
+				"type": "number",
+				"description": "This is a description."
+			},
+			"required_number_field": {
+				"type": "number"
+			},
+			"default_number_field": {
+				"type": "number",
+				"default": 1
+			},
+			"const_number_field": {
+				"type": "number",
+				"const": 2
+			},
+			"placeholder_number_field": {
+				"type": "number"
+			},
+			"readonly_number_field": {
+				"type": "number",
+				"readOnly": true
+			},
+			"disabled_number_field": {
+				"type": "number"
+			}
+		}
+	},
+	"uiSchema": {
+		"placeholder_number_field": {
+			"ui:placeholder": "This is a placeholder"
+		},
+		"disabled_number_field": {
+			"ui:disabled": true
+		}
+	}
+}

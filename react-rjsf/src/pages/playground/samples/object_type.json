@@ -1,0 +1,42 @@
+{
+	"jsonSchema": {
+		"type": "object",
+		"required": ["required_array_field"],
+		"properties": {
+			"array_field": {
+				"type": "array",
+				"items": { "type": "string" }
+			},
+			"description_array_field": {
+				"type": "array",
+				"description": "This is a description.",
+				"items": { "type": "string" }
+			},
+			"required_array_field": {
+				"type": "array",
+				"items": { "type": "string" }
+			},
+			"placeholder_array_field": {
+				"type": "array",
+				"items": { "type": "string" }
+			},
+			"readonly_array_field": {
+				"type": "array",
+				"readOnly": true,
+				"items": { "type": "string" }
+			},
+			"disabled_array_field": {
+				"type": "array",
+				"items": { "type": "string" }
+			}
+		}
+	},
+	"uiSchema": {
+		"placeholder_array_field": {
+			"ui:placeholder": "This is a placeholder"
+		},
+		"disabled_array_field": {
+			"ui:disabled": true
+		}
+	}
+}

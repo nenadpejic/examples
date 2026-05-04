@@ -1,0 +1,47 @@
+{
+	"jsonSchema": {
+		"type": "object",
+		"properties": {
+			"my_table_widget": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"required": ["required_string_field"],
+					"properties": {
+						"string_field": { "type": "string" },
+						"date-time_string_field": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"date_string_field": {
+							"type": "string",
+							"format": "date"
+						},
+						"time_string_field": {
+							"type": "string",
+							"format": "time"
+						},
+						"required_string_field": {
+							"type": "string"
+						},
+						"default_string_field": {
+							"type": "string",
+							"default": "This is a default value"
+						},
+						"const_string_field": {
+							"type": "string",
+							"const": "This is a const value"
+						},
+						"number_field": { "type": "number" },
+						"boolean_field": { "type": "boolean" }
+					}
+				}
+			}
+		}
+	},
+	"uiSchema": {
+		"disabled_array_field": {
+			"ui:disabled": true
+		}
+	}
+}
