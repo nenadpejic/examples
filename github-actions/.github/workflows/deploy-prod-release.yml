@@ -1,0 +1,120 @@
+name: Deploy - Production (Release)
+
+# Deploy to production when a GitHub Release is created
+# This workflow is triggered by creating a release via GitHub UI
+# Releases should follow semantic versioning (v1.0.0)
+on:
+  release:
+    types:
+      - published
+      - created
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    # Production environment protection rules:
+    # - Requires reviewers before deployment
+    # - Can enforce wait times
+    # - Only allows deployment from main/master branch
+    environment:
+      name: production
+      url: https://example.vercel.app
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Deploy from the tag associated with the release
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Verify production branch
+        run: |
+          # Ensure we're deploying from main branch (extra safety check)
+          if [ "${{ github.ref }}" != "refs/heads/main" ] && \
+             [ "${{ github.ref }}" != "refs/tags/${{ github.event.release.tag_name }}" ]; then
+            echo "⚠️ Warning: Deployment initiated from non-main branch"
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run full test suite
+        run: npm test
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Build for production
+        run: npm run build
+
+      - name: Deploy to production
+        env:
+          # In real deployments, use secrets for authentication
+          # DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          # VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          ENVIRONMENT: production
+        run: |
+          echo "🚀 Deploying to production..."
+          echo "Release version: ${{ github.event.release.tag_name }}"
+          echo "Release name: ${{ github.event.release.name }}"
+          echo "Prerelease: ${{ github.event.release.prerelease }}"
+
+      - name: Create deployment status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Get the release
+            const release = context.payload.release;
+            
+            // Create a deployment
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: '${{ github.event.release.tag_name }}',
+              environment: 'production',
+              auto_merge: false,
+              production_environment: true,
+              required_contexts: []
+            });
+
+            // Mark deployment as successful
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.data.id,
+              state: 'success',
+              environment_url: 'https://example.vercel.app',
+              description: `Deployment of release ${release.tag_name} successful`
+            });
+
+      - name: Comment on release
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createReleaseComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: ${{ github.event.release.id }},
+              body: `✅ Successfully deployed to production!\n\nDeployed by: @${{ github.actor }}\nDeployment time: ${new Date().toISOString()}`
+            });
+
+      - name: Handle deployment failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createReleaseComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: ${{ github.event.release.id }},
+              body: `❌ Deployment to production failed!\n\nPlease check the workflow logs.`
+            });

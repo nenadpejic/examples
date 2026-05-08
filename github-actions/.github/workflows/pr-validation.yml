@@ -1,0 +1,57 @@
+name: PR - Validation
+
+# This workflow runs on all pull requests
+# It orchestrates all CI checks and ensures they pass before merge
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Define which checks are required for PR merge
+  # Using 'needs' creates dependencies: this job waits for others to complete
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    # Wait for all other CI workflows to complete
+    needs:
+      - lint-check
+      - test-check
+      - build-check
+
+    steps:
+      - name: Check PR validation status
+        run: |
+          if [ "${{ needs.lint-check.result }}" != "success" ] || \
+             [ "${{ needs.test-check.result }}" != "success" ] || \
+             [ "${{ needs.build-check.result }}" != "success" ]; then
+            echo "❌ PR validation failed. One or more required checks did not pass."
+            echo "Please fix the issues and push again."
+            exit 1
+          fi
+          echo "✅ All PR validation checks passed!"
+
+  # Reusable job that calls the lint workflow
+  # This demonstrates workflow composition - calling a workflow from another workflow
+  lint-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run linting
+        uses: ./.github/workflows/ci-lint.yml
+
+  # Reusable job that calls the test workflow
+  test-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        uses: ./.github/workflows/ci-test.yml
+
+  # Reusable job that calls the build workflow
+  build-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run build
+        uses: ./.github/workflows/ci-build.yml

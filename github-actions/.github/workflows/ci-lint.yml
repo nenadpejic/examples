@@ -1,0 +1,61 @@
+name: CI - Lint & Format
+
+# Trigger on push to any branch and on all pull requests
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+# Cancel in-progress runs when a new run is triggered on the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    # Set a timeout to prevent workflows from running indefinitely
+    timeout-minutes: 15
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Setup Node.js environment with the version specified in .nvmrc
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Run ESLint on TypeScript/TSX files
+      # This checks for code style violations, unused variables, potential bugs, etc.
+      - name: Run ESLint
+        run: npm run lint
+
+      # Check code formatting with Prettier
+      # Ensures consistent code formatting across the project
+      - name: Check code formatting
+        run: npm run format:check
+
+  # This job is a status check that indicates overall lint pass/fail
+  # It runs after all matrix jobs complete
+  lint-status:
+    runs-on: ubuntu-latest
+    needs: lint
+    if: always()
+    steps:
+      - name: Lint status check
+        run: |
+          if [ "${{ needs.lint.result }}" = "failure" ]; then
+            echo "❌ Linting failed. Please run 'npm run lint:fix' and 'npm run format' locally."
+            exit 1
+          fi
+          echo "✅ Linting passed"

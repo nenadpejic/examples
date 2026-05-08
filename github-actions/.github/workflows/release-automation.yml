@@ -1,0 +1,144 @@
+name: Release - Automation
+
+# Automatically manage releases and versioning
+# Triggered manually or on merge to main
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Release type'
+        required: true
+        default: 'minor'
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+      prerelease:
+        description: 'Is this a prerelease?'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for changelog generation
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      # Determine current version from package.json
+      - name: Get current version
+        id: version
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT_VERSION"
+
+      # Calculate new version based on release type
+      - name: Calculate new version
+        id: newversion
+        env:
+          CURRENT: ${{ steps.version.outputs.current_version }}
+          TYPE: ${{ github.event.inputs.release_type || 'patch' }}
+        run: |
+          # Parse version
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          PATCH=${PATCH:-0}
+          
+          case "$TYPE" in
+            major)
+              MAJOR=$((MAJOR + 1))
+              MINOR=0
+              PATCH=0
+              ;;
+            minor)
+              MINOR=$((MINOR + 1))
+              PATCH=0
+              ;;
+            patch)
+              PATCH=$((PATCH + 1))
+              ;;
+          esac
+          
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          if [ "${{ github.event.inputs.prerelease }}" = "true" ]; then
+            NEW_VERSION="$NEW_VERSION-alpha.$(date +%s)"
+          fi
+          
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      # Update package.json with new version
+      - name: Update version in package.json
+        run: |
+          npm version ${{ steps.newversion.outputs.new_version }} --no-git-tag-version
+
+      # Generate changelog from commit history
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "Generating changelog for version ${{ steps.newversion.outputs.new_version }}..."
+          
+          # Get commits since last tag
+          COMMITS=$(git log --oneline -10 2>/dev/null | head -10 || echo "Initial release")
+          
+          CHANGELOG="## Version ${{ steps.newversion.outputs.new_version }}\n\n### Changes\n$COMMITS\n\n### Build Info\n- Released: $(date -u +'%Y-%m-%d %H:%M:%S UTC')\n- Commit: ${{ github.sha }}"
+          
+          echo "CHANGELOG<<EOF" >> $GITHUB_ENV
+          echo -e "$CHANGELOG" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      # Commit version update
+      - name: Commit version update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json 2>/dev/null || true
+          git commit -m "chore: bump version to ${{ steps.newversion.outputs.new_version }}"
+
+      # Create git tag
+      - name: Create git tag
+        run: |
+          git tag -a v${{ steps.newversion.outputs.new_version }} \
+            -m "Release v${{ steps.newversion.outputs.new_version }}" \
+            -m "${{ env.CHANGELOG }}"
+
+      # Push changes and tags
+      - name: Push changes
+        run: |
+          git push origin main
+          git push origin v${{ steps.newversion.outputs.new_version }}
+
+      # Create GitHub Release
+      - name: Create GitHub Release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: 'v${{ steps.newversion.outputs.new_version }}',
+              name: 'Release ${{ steps.newversion.outputs.new_version }}',
+              body: `${{ env.CHANGELOG }}`,
+              draft: false,
+              prerelease: ${{ github.event.inputs.prerelease || false }}
+            });
+
+      - name: Release summary
+        run: |
+          echo "✅ Release created successfully!"
+          echo "Version: v${{ steps.newversion.outputs.new_version }}"
+          echo "Type: ${{ github.event.inputs.release_type || 'patch' }}"
+          echo "Prerelease: ${{ github.event.inputs.prerelease || false }}"

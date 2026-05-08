@@ -1,0 +1,96 @@
+name: CI - Build
+
+# Trigger on push and all pull requests
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+# Cancel in-progress runs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Matrix strategy: Test build on multiple Node.js versions and operating systems
+  # This ensures the application builds consistently across different environments
+  build:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+
+    strategy:
+      # fail-fast: false means all matrix combinations will run even if one fails
+      # This is useful for seeing all potential issues at once
+      fail-fast: false
+      matrix:
+        # Test on LTS versions of Node.js
+        node-version: ['18.x', '20.x', '22.x']
+        # Test on Ubuntu and macOS (Windows has longer build times)
+        os: [ubuntu-latest, macos-latest]
+        exclude:
+          # Reduce matrix size: only test macOS on one Node version to save CI time
+          # In production, you might test fewer OS combinations
+          - os: macos-latest
+            node-version: '18.x'
+          - os: macos-latest
+            node-version: '20.x'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Setup Node.js - use matrix variable to test different versions
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Type-check TypeScript files
+      - name: Type check
+        run: npx tsc --noEmit
+
+      # Build the project with Vite
+      # Output goes to dist/ directory
+      - name: Build project
+        run: npm run build
+
+      # Verify build artifacts exist
+      - name: Verify build artifacts
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Build failed: dist directory not created"
+            exit 1
+          fi
+          echo "✅ Build artifacts created successfully"
+
+      # Upload build artifacts for inspection and potential deployment
+      # Artifacts are stored for 1 day by default
+      # Use download-artifact action to retrieve in other workflows
+      - name: Upload build artifacts
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '20.x'
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-${{ matrix.node-version }}-${{ matrix.os }}
+          path: dist/
+          retention-days: 1
+
+  # Aggregate job to check if all builds succeeded
+  # This provides a single status indicator for the build job
+  build-status:
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+    steps:
+      - name: Build status
+        run: |
+          if [ "${{ needs.build.result }}" = "failure" ]; then
+            echo "❌ Build failed on one or more matrix combinations"
+            exit 1
+          fi
+          echo "✅ All builds passed across matrix combinations"

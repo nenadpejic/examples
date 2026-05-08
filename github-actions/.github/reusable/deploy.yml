@@ -1,0 +1,106 @@
+name: Deploy
+
+# This is a reusable workflow that can be called from other workflows
+# It handles the deployment logic for all environments
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+        description: 'Deployment environment (dev, staging, prod)'
+      ref:
+        required: false
+        type: string
+        default: ${{ github.ref }}
+        description: 'Git reference (branch or tag) to deploy'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+      url: https://${{ inputs.environment }}-example.vercel.app
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Type-check and build
+      - name: Build application
+        run: npm run build
+
+      - name: Log deployment info
+        run: |
+          echo "Deploying to environment: ${{ inputs.environment }}"
+          echo "Git ref: ${{ inputs.ref }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Repository: ${{ github.repository }}"
+
+      # In a real scenario, you would deploy here using a service-specific action
+      # Examples:
+      # - Vercel: actions/deploy-to-vercel
+      # - AWS: aws-actions/configure-aws-credentials
+      # - Azure: azure/login
+      # This example simulates deployment by creating an artifact
+      - name: Simulate deployment
+        run: |
+          mkdir -p .deploy
+          cp -r dist/* .deploy/ 2>/dev/null || true
+          echo "Deployment completed at $(date)" > .deploy/deploy-info.txt
+
+      # Create a deployment in GitHub (for tracking)
+      - name: Create GitHub deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.ref,
+              environment: '${{ inputs.environment }}',
+              auto_merge: false,
+              required_contexts: [],
+              production_environment: '${{ inputs.environment }}' === 'prod'
+            });
+
+      # Mark deployment as successful
+      - name: Mark deployment as successful
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: context.payload.deployment.id || context.payload.repository.id,
+              state: 'success',
+              environment_url: 'https://${{ inputs.environment }}-example.vercel.app',
+              description: 'Deployment successful',
+            });
+
+      # Mark deployment as failed if any step fails
+      - name: Mark deployment as failed
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: context.payload.deployment.id || context.payload.repository.id,
+              state: 'failure',
+              description: 'Deployment failed',
+            });

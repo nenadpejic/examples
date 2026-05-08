@@ -1,0 +1,6 @@
+# Require review of workflow changes
+.github/workflows/ @nenadpejic
+.github/reusable/ @nenadpejic
+.eslintrc.js @nenadpejic
+prettier* @nenadpejic
+tsconfig* @nenadpejic

@@ -1,0 +1,42 @@
+name: Deploy - Development
+
+# Auto-deploy to dev on every push to develop branch
+# This enables continuous deployment for rapid testing
+on:
+  push:
+    branches:
+      - develop
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: false
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to development
+        # Call the reusable deploy workflow
+        uses: ./.github/reusable/deploy.yml
+        with:
+          environment: dev
+          ref: ${{ github.ref }}
+
+      # Notify on successful deployment
+      - name: Notify deployment success
+        if: success()
+        run: |
+          echo "✅ Development deployment successful"
+          echo "Deployed commit: ${{ github.sha }}"
+          echo "Deployed by: ${{ github.actor }}"
+
+      # Notify on deployment failure
+      - name: Notify deployment failure
+        if: failure()
+        run: |
+          echo "❌ Development deployment failed"
+          echo "Please check the logs above"
+          exit 1
